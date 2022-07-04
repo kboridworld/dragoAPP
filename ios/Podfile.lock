@@ -1,0 +1,267 @@
+PODS:
+  - amap_location_flutter_plugin (0.0.1):
+    - AMapLocation
+    - Flutter
+  - AMapFoundation (1.6.3)
+  - AMapLocation (2.6.5):
+    - AMapFoundation (~> 1.6.3)
+  - audioplayers (0.0.1):
+    - Flutter
+  - Bugly (2.5.5)
+  - camera (0.0.1):
+    - Flutter
+  - city_pickers (0.0.1):
+    - Flutter
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
+  - device_info (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - flutter_image_compress (0.0.1):
+    - Flutter
+    - Mantle
+    - SDWebImageWebPCoder
+  - flutter_nfc_kit (2.0.0):
+    - Flutter
+  - flutter_webview_plugin (0.0.1):
+    - Flutter
+  - fluwx (0.0.1):
+    - Flutter
+    - WechatOpenSDK (= 1.8.7.1)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - install_plugin (0.0.1):
+    - Flutter
+  - libwebp (1.1.0):
+    - libwebp/demux (= 1.1.0)
+    - libwebp/mux (= 1.1.0)
+    - libwebp/webp (= 1.1.0)
+  - libwebp/demux (1.1.0):
+    - libwebp/webp
+  - libwebp/mux (1.1.0):
+    - libwebp/demux
+  - libwebp/webp (1.1.0)
+  - Mantle (2.1.1):
+    - Mantle/extobjc (= 2.1.1)
+  - Mantle/extobjc (2.1.1)
+  - nh_flutter_light_sensor_plugin (0.0.1):
+    - Flutter
+  - nh_flutter_native_channel (0.0.1):
+    - Flutter
+  - nh_flutter_umeng_plugin (0.0.1):
+    - Flutter
+    - UMCCommon (= 7.1.1)
+    - UMCCommonLog (= 2.0.0)
+    - UMCPush (= 3.2.4)
+  - OpenUDID (1.0.0)
+  - package_info (0.0.1):
+    - Flutter
+  - path_provider (0.0.1):
+    - Flutter
+  - "permission_handler (5.0.1+1)":
+    - Flutter
+  - photo_manager (0.0.1):
+    - Flutter
+  - photo_manager_patch (0.0.1):
+    - Flutter
+  - Reachability (3.2)
+  - SDWebImage/Core (5.8.4)
+  - SDWebImageWebPCoder (0.6.1):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.7)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - sqflite (0.0.1):
+    - Flutter
+    - FMDB (~> 2.7.2)
+  - sqlite3 (3.32.3):
+    - sqlite3/common (= 3.32.3)
+  - sqlite3/common (3.32.3)
+  - sqlite3/fts5 (3.32.3):
+    - sqlite3/common
+  - sqlite3/json1 (3.32.3):
+    - sqlite3/common
+  - sqlite3/perf-threadsafe (3.32.3):
+    - sqlite3/common
+  - sqlite3/rtree (3.32.3):
+    - sqlite3/common
+  - sqlite3_flutter_libs (0.0.1):
+    - Flutter
+    - sqlite3 (~> 3.32.3)
+    - sqlite3/fts5
+    - sqlite3/json1
+    - sqlite3/perf-threadsafe
+    - sqlite3/rtree
+  - UMCCommon (7.1.1)
+  - UMCCommonLog (2.0.0)
+  - UMCPush (3.2.4):
+    - UMCCommon
+  - url_launcher (0.0.1):
+    - Flutter
+  - vibration (1.5.0):
+    - Flutter
+  - video_player (0.0.1):
+    - Flutter
+  - WechatOpenSDK (1.8.7.1)
+  - wifi (0.0.1):
+    - Flutter
+  - YYModel (1.0.4)
+
+DEPENDENCIES:
+  - amap_location_flutter_plugin (from `.symlinks/plugins/amap_location_flutter_plugin/ios`)
+  - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
+  - Bugly
+  - camera (from `.symlinks/plugins/camera/ios`)
+  - city_pickers (from `.symlinks/plugins/city_pickers/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - device_info (from `.symlinks/plugins/device_info/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
+  - flutter_nfc_kit (from `.symlinks/plugins/flutter_nfc_kit/ios`)
+  - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
+  - fluwx (from `.symlinks/plugins/fluwx/ios`)
+  - install_plugin (from `.symlinks/plugins/install_plugin/ios`)
+  - nh_flutter_light_sensor_plugin (from `.symlinks/plugins/nh_flutter_light_sensor_plugin/ios`)
+  - nh_flutter_native_channel (from `.symlinks/plugins/nh_flutter_native_channel/ios`)
+  - nh_flutter_umeng_plugin (from `.symlinks/plugins/nh_flutter_umeng_plugin/ios`)
+  - OpenUDID
+  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
+  - photo_manager_patch (from `.symlinks/plugins/photo_manager_patch/ios`)
+  - Reachability
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/ios`)
+  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - vibration (from `.symlinks/plugins/vibration/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
+  - wifi (from `.symlinks/plugins/wifi/ios`)
+  - YYModel
+
+SPEC REPOS:
+  trunk:
+    - AMapFoundation
+    - AMapLocation
+    - Bugly
+    - FMDB
+    - libwebp
+    - Mantle
+    - OpenUDID
+    - Reachability
+    - SDWebImage
+    - SDWebImageWebPCoder
+    - sqlite3
+    - UMCCommon
+    - UMCCommonLog
+    - UMCPush
+    - WechatOpenSDK
+    - YYModel
+
+EXTERNAL SOURCES:
+  amap_location_flutter_plugin:
+    :path: ".symlinks/plugins/amap_location_flutter_plugin/ios"
+  audioplayers:
+    :path: ".symlinks/plugins/audioplayers/ios"
+  camera:
+    :path: ".symlinks/plugins/camera/ios"
+  city_pickers:
+    :path: ".symlinks/plugins/city_pickers/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
+  Flutter:
+    :path: Flutter
+  flutter_image_compress:
+    :path: ".symlinks/plugins/flutter_image_compress/ios"
+  flutter_nfc_kit:
+    :path: ".symlinks/plugins/flutter_nfc_kit/ios"
+  flutter_webview_plugin:
+    :path: ".symlinks/plugins/flutter_webview_plugin/ios"
+  fluwx:
+    :path: ".symlinks/plugins/fluwx/ios"
+  install_plugin:
+    :path: ".symlinks/plugins/install_plugin/ios"
+  nh_flutter_light_sensor_plugin:
+    :path: ".symlinks/plugins/nh_flutter_light_sensor_plugin/ios"
+  nh_flutter_native_channel:
+    :path: ".symlinks/plugins/nh_flutter_native_channel/ios"
+  nh_flutter_umeng_plugin:
+    :path: ".symlinks/plugins/nh_flutter_umeng_plugin/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  photo_manager:
+    :path: ".symlinks/plugins/photo_manager/ios"
+  photo_manager_patch:
+    :path: ".symlinks/plugins/photo_manager_patch/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
+  sqlite3_flutter_libs:
+    :path: ".symlinks/plugins/sqlite3_flutter_libs/ios"
+  url_launcher:
+    :path: ".symlinks/plugins/url_launcher/ios"
+  vibration:
+    :path: ".symlinks/plugins/vibration/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
+  wifi:
+    :path: ".symlinks/plugins/wifi/ios"
+
+SPEC CHECKSUMS:
+  amap_location_flutter_plugin: f384eb6dc0df0715d8ce90b2d2d9a802646aa373
+  AMapFoundation: 9ed923193b357ebb30a073e9fe255d3c24054d5a
+  AMapLocation: c566d448285cd502c1e313063d9e2460bd4d7100
+  audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
+  Bugly: eded937bbb1f731cacf689c2d934ddbd9ab34f83
+  camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
+  city_pickers: b0370f4c35c201723b5b7fcce10ec29b59d5bc35
+  connectivity: 6e94255659cc86dcbef1d452ad3e0491bb1b3e75
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_image_compress: 082f8daaf6c1b0c9fe798251c750ef0ecd98d7ae
+  flutter_nfc_kit: 65b3fd399703a7abb32af4e9b631e41179fd550d
+  flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
+  fluwx: 07a55ed66bf3a4961e836a2a411b02dcada32902
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  install_plugin: a13e7ddd2bab0c701b48cd359c26d0394125b6fb
+  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  Mantle: 35238ae6f2e2b2d474fa7b67fee82a59fea71915
+  nh_flutter_light_sensor_plugin: cad5eec6c878f2a8266fe27e4c63ddf12ff7d083
+  nh_flutter_native_channel: b9f4214ba3ea0b884203c33139de2733ba145897
+  nh_flutter_umeng_plugin: 23e7854f80f141b8444414bcce8764891a39206d
+  OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  photo_manager: f7c619c2cc8c2adb8d85c63363babac477de9c67
+  photo_manager_patch: 56a763552b2326e594061b868064f606c2a4f0ca
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
+  SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+  sqlite3: 8f7d2078ae27778699a622a94b853285793422a2
+  sqlite3_flutter_libs: 5651f8ff48e3b44d910863c4ea5916085b1b245f
+  UMCCommon: f455f92c125342e360d6ad9eafe484945351eeb5
+  UMCCommonLog: 9b7ddde5d14a52fc1986ba5ac3121b8b2f433638
+  UMCPush: 1edd856027dcf905333effb4040ace5d236a7316
+  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  vibration: 64de683387ea8cc822f7b4f1653747bc8ff91662
+  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
+  WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
+  wifi: d7d77c94109e36c4175d845f0a5964eadba71060
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+
+PODFILE CHECKSUM: 2c9144895c59152e5839c2cf0116c9a63bf89055
+
+COCOAPODS: 1.10.0.rc.1

@@ -1,0 +1,132 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+// 从local.properties文件中读取证书相关配置，
+// 若未配置，则默认适用debug.keystore
+def keyStoreAlias = localProperties.getProperty('keyStore.alias')
+def keyStorePassword = localProperties.getProperty('keyStore.password')
+def keyStoreFile = localProperties.getProperty('keyStore.file')
+def keyStoreFilePassword = localProperties.getProperty('keyStore.storePassword')
+if (null == keyStoreAlias || null == keyStorePassword || null == keyStoreFile || null == keyStoreFilePassword) {
+    keyStoreAlias = 'androiddebugkey'
+    keyStorePassword = 'android'
+    keyStoreFile = '../debug.keystore'
+    keyStoreFilePassword = 'android'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+    compileSdkVersion 28
+
+    lintOptions {
+        disable 'InvalidPackage'
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias keyStoreAlias
+            keyPassword keyStorePassword
+            storeFile file(keyStoreFile)
+            storePassword keyStoreFilePassword
+        }
+
+        release {
+            keyAlias keyStoreAlias
+            keyPassword keyStorePassword
+            storeFile file(keyStoreFile)
+            storePassword keyStoreFilePassword
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.android.dragoma"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled = true
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        profile {
+            signingConfig signingConfigs.release
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters 'arm64-v8a'
+            }
+        }
+    }
+
+    // multiDex的一些相关配置，这样配置可以让你的编译速度更快
+    dexOptions {
+        // 让它不要对Lib做preDexing
+        preDexLibraries = false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+//  打正式版apk渠道包时开启，平时开发先注释掉
+//    flavorDimensions "channel"
+//    productFlavors {
+//        oppo { dimension "channel" }
+//        vivo { dimension "channel" }
+//        xiaomi { dimension "channel" }
+//        huawei { dimension "channel" }
+//    }
+//    productFlavors.all {
+//        flavor -> flavor.manifestPlaceholders = ['UMENG_CHANNEL_VALUE': name]
+//    }
+}
+
+flutter {
+    source '../..'
+}
+dependencies {
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
