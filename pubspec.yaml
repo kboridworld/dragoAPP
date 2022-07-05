@@ -10,14 +10,16 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  # 第三方库
+
+  # 三方库
+  cupertino_icons: ^1.0.1+1
   audioplayers: ^0.20.1
   auto_size_text: ^3.0.0-nullsafety.0
   bot_toast: ^4.0.1
   cached_network_image: ^3.1.0
   day: ^0.7.1
   decimal: ^1.5.0
-  device_info: ^2.0.3
+  device_info_plus: ^4.0.0
   dio: ^4.0.0
   event_bus: ^2.0.0
   flutter_native_contact_picker: ^0.0.3
@@ -38,26 +40,31 @@ dependencies:
   archive: ^3.1.6
   get: ^4.6.1
 
-  # 运荔枝库
+  # fork的三方库
+  geolocator:
+    git:
+      url: git@github.com:DragomaApp/lib_flutter_packages.git
+      path: packages/geolocator
+      ref: master
+  photo_manager_patch:
+    git:
+      url: git@github.com:DragomaApp/lib_flutter_packages.git
+      path: packages/photo_manager_patch
+      ref: master
+  shimmer_animation:
+    git:
+      url: git@github.com:DragomaApp/lib_flutter_packages.git
+      path: packages/shimmer_animation
+      ref: master
+  wifi:
+    git:
+      url: git@github.com:DragomaApp/lib_flutter_packages.git
+      path: packages/ylz_wifi
+      ref: master
   wechat_assets_picker:
     git:
       url: git@github.com:DragomaApp/lib_flutter_packages.git
       path: packages/wechat_assets_picker
-      ref: master
-  lib_ylz_upgrade_package:
-    git:
-      url: git@github.com:DragomaApp/lib_flutter_packages.git
-      path: packages/lib_ylz_upgrade_package
-      ref: master
-  amap_location_flutter_plugin:
-    git:
-      url: git@github.com:DragomaApp/lib_flutter_packages.git
-      path: packages/amap-location-flutter
-      ref: master
-  city_pickers:
-    git:
-      url: git@github.com:DragomaApp/lib_flutter_packages.git
-      path: packages/city_pickers
       ref: master
   connectivity:
     git:
@@ -68,6 +75,13 @@ dependencies:
     git:
       url: git@github.com:DragomaApp/lib_flutter_packages.git
       path: packages/flutter_image_compress
+      ref: master
+
+  # 自有库
+  lib_ylz_upgrade_package:
+    git:
+      url: git@github.com:DragomaApp/lib_flutter_packages.git
+      path: packages/lib_ylz_upgrade_package
       ref: master
   lib_ylz_camera:
     git:
@@ -99,21 +113,6 @@ dependencies:
       url: git@github.com:DragomaApp/lib_flutter_packages.git
       path: packages/nf_flutter_network
       ref: master
-  photo_manager_patch:
-    git:
-      url: git@github.com:DragomaApp/lib_flutter_packages.git
-      path: packages/photo_manager_patch
-      ref: master
-  shimmer_animation:
-    git:
-      url: git@github.com:DragomaApp/lib_flutter_packages.git
-      path: packages/shimmer_animation
-      ref: master
-  wifi:
-    git:
-      url: git@github.com:DragomaApp/lib_flutter_packages.git
-      path: packages/ylz_wifi
-      ref: master
   lib_ylz_webview_core_x5:
     git:
       url: git@github.com:DragomaApp/lib_flutter_packages.git
@@ -128,6 +127,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^1.0.4
   build_runner: ^2.1.5
   git_hooks: 0.1.6
   json_serializable: ^6.0.1
@@ -139,5 +139,5 @@ dependency_overrides:
 flutter:
   uses-material-design: true
   assets:
-  - assets/images/guide/
-  - assets/images/tab/
+    - assets/images/guide/
+    - assets/images/tab/
