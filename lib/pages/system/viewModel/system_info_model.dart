@@ -46,8 +46,8 @@ class SystemInfoModel extends BasicStateModel {
     deviceName = platformUtils.brand + " " + platformUtils.deviceName;
     systemVersion = '${platformUtils.systemVersion}';
     if (Platform.isAndroid) {
-      systemVersion += '- ${platformUtils.androidDeviceInfo?.hardware}';
-      fingerprint = platformUtils.androidDeviceInfo?.display ?? '';
+      systemVersion += '- ${platformUtils.androidDeviceInfo.hardware}';
+      fingerprint = platformUtils.androidDeviceInfo.display ?? '';
     }
     deviceID = platformUtils.deviceId;
     needUpdate = _upgradeViewModel.upgradeModel?.hasUpgrade ?? false;

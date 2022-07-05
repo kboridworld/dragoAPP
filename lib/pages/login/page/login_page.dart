@@ -1,22 +1,22 @@
+import 'package:dragoma/common/res/dimens.dart';
+import 'package:dragoma/common/res/gaps.dart';
+import 'package:dragoma/common/res/strings.dart';
+import 'package:dragoma/common/res/styles.dart';
+import 'package:dragoma/pages/login/controller/login_controller.dart';
+import 'package:dragoma/pages/login/login_helper.dart';
+import 'package:dragoma/pages/login/widget/account_protocol_widget.dart';
+import 'package:dragoma/pages/login/widget/input_row.dart';
+import 'package:dragoma/widgets/comm_btn_widget.dart';
+import 'package:dragoma/widgets/image_loader.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart'
     hide InputRow;
-import 'package:dragoma/common/res/dimens.dart';
-import 'package:dragoma/common/res/gaps.dart';
-import 'package:dragoma/common/res/strings.dart';
-import 'package:dragoma/common/res/styles.dart';
-import 'package:dragoma/widgets/image_loader.dart';
-import 'package:dragoma/pages/login/controller/login_controller.dart';
-import 'package:dragoma/pages/login/login_helper.dart';
-import 'package:dragoma/pages/login/mixin/account_mixin.dart';
-import 'package:dragoma/pages/login/widget/input_row.dart';
-import 'package:dragoma/widgets/comm_btn_widget.dart';
 
 ///
 /// 登录页面
-class LoginPage extends GetView<LoginController> with AccountMixin {
+class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     double headerHeight = Get.width / 375 * 280;
@@ -32,44 +32,6 @@ class LoginPage extends GetView<LoginController> with AccountMixin {
               height: MediaQuery.of(context).size.height,
               child: Stack(
                 children: [
-                  // 头部
-                  Container(
-                    height: headerHeight,
-                    child: Stack(
-                      children: [
-                        // 头部背景
-                        ImageLoader('user/bg_login'),
-                        // 头部内容
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // 标题栏
-                            GestureDetector(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Container(
-                                color: Colors.transparent,
-                                width: 44,
-                                height: 44.0,
-                                margin: EdgeInsets.only(top: 40.0),
-                                padding: EdgeInsets.symmetric(horizontal: 12.0),
-                                child: ImageLoader(
-                                  'comm/icon_back_arrow',
-                                  width: 20,
-                                  height: 20,
-                                ),
-                              ),
-                            ),
-                            // 头部信息内容
-                            buildHeaderWidget(),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-
                   // 主体内容
                   Positioned(
                     top: headerShowHeight,
@@ -99,7 +61,6 @@ class LoginPage extends GetView<LoginController> with AccountMixin {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               _contentWidget(),
-                              _buildMoreLogin(),
                             ],
                           ),
                         );
@@ -111,67 +72,6 @@ class LoginPage extends GetView<LoginController> with AccountMixin {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  ///
-  /// 更多登录方式
-  _buildMoreLogin() {
-    TextStyle _loginStyle = TextStyle(
-        color: ColorValues.descriptionText, fontSize: Dimens.font_sp12);
-    return Container(
-      decoration: BoxDecoration(color: Colors.transparent),
-      padding: EdgeInsets.only(bottom: 61.0) +
-          EdgeInsets.only(bottom: Get.mediaQuery.padding.bottom),
-      child: Column(
-        children: [
-          Text(
-            '更多登录方式',
-            style: TextStyles.textSize12.copyWith(color: ColorValues.grey_ccc),
-          ),
-          Gaps.vGap12,
-          Row(
-            children: [
-              Gaps.hGap50,
-              if (controller.loginType == LoginType.TYPE_CODE)
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      controller.codeFocusNode.unfocus();
-                      controller.changeLoginType();
-                    },
-                    child: Column(
-                      children: [
-                        ImageLoader('user/icon_login_pwd',
-                            width: 44, height: 44),
-                        Gaps.vGap8,
-                        Text('账号密码登录', style: _loginStyle),
-                      ],
-                    ),
-                  ),
-                ),
-              if (controller.loginType == LoginType.TYPE_PWD)
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      controller.codeFocusNode.unfocus();
-                      controller.changeLoginType();
-                    },
-                    child: Column(
-                      children: [
-                        ImageLoader('user/icon_login_code',
-                            width: 44, height: 44),
-                        Gaps.vGap8,
-                        Text('手机验证码登录', style: _loginStyle),
-                      ],
-                    ),
-                  ),
-                ),
-              Gaps.hGap50,
-            ],
-          ),
-        ],
       ),
     );
   }
@@ -202,7 +102,7 @@ class LoginPage extends GetView<LoginController> with AccountMixin {
                       fontSize: Dimens.font_sp14,
                       fontWeight: FontWeight.bold)),
               TextSpan(
-                  text: '申请企业注册',
+                  text: '立即注册',
                   style: TextStyle(
                       fontSize: Dimens.font_sp14,
                       color: ColorValues.primaryColor,
@@ -318,7 +218,7 @@ class LoginPage extends GetView<LoginController> with AccountMixin {
               ],
             )),
         Gaps.hLin,
-        buildProtocolWidget(controller),
+        AccountProtocolWidget(controller: controller),
         SizedBox(height: 16),
         Obx(() => CommonBtnWidget.buttonWidget(
               Get.context!,
@@ -414,7 +314,7 @@ class LoginPage extends GetView<LoginController> with AccountMixin {
               },
             )),
         Gaps.hLin,
-        buildProtocolWidget(controller),
+        AccountProtocolWidget(controller: controller),
         SizedBox(height: 16),
         Obx(() => CommonBtnWidget.buttonWidget(
               Get.context!,

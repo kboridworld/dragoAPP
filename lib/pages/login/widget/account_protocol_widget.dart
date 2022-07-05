@@ -1,46 +1,25 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 import 'package:dragoma/common/res/dimens.dart';
 import 'package:dragoma/common/res/gaps.dart';
 import 'package:dragoma/common/res/strings.dart';
 import 'package:dragoma/common/res/styles.dart';
-import 'package:dragoma/widgets/image_loader.dart';
 import 'package:dragoma/pages/login/controller/account_controller.dart';
+import 'package:dragoma/utils/web_view_utils.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 
-mixin AccountMixin {
-  ///
-  /// 构建header
-  Widget buildHeaderWidget() {
-    return Container(
-      width: MediaQuery.of(Get.context!).size.width,
-      padding: EdgeInsets.only(left: 21, bottom: 36),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ImageLoader(
-            'logo/icon_logo',
-            width: 40,
-            height: 40,
-          ),
-          Gaps.vGap16,
-          Text(
-            YlzString.login_hi,
-            style: TextStyle(
-              color: ColorValues.primaryText,
-              fontSize: Dimens.font_sp24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+///
+/// 登录注册协议组件
+class AccountProtocolWidget<T extends AccountController>
+    extends StatelessWidget {
+  final T controller;
 
-  ///
-  /// 公用协议widget
-  Widget buildProtocolWidget(AccountController controller) {
+  const AccountProtocolWidget({Key? key, required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Row(
@@ -79,8 +58,7 @@ mixin AccountMixin {
                       fontSize: Dimens.font_sp12),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      controller.viewProtocol(YlzString.title_ylz_user_protocol,
-                          YlzString.user_protocol_url);
+                      WebViewUtils.gotoUserProtocol();
                     }),
               TextSpan(
                   text: '和',
@@ -94,9 +72,7 @@ mixin AccountMixin {
                       fontSize: Dimens.font_sp12),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      controller.viewProtocol(
-                          YlzString.title_ylz_private_protocol,
-                          YlzString.private_protocol_url);
+                      WebViewUtils.gotoPrivateProtocol();
                     }),
             ]),
             textAlign: TextAlign.center,

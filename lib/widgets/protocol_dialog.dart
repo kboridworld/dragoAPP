@@ -1,12 +1,12 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:dragoma/common/res/dimens.dart';
 import 'package:dragoma/common/res/gaps.dart';
 import 'package:dragoma/common/res/strings.dart';
 import 'package:dragoma/common/res/styles.dart';
 import 'package:dragoma/utils/web_view_utils.dart';
 import 'package:dragoma/widgets/comm_btn_widget.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProtocolDialog {
   ///用户协议和隐私协议弹窗
@@ -43,8 +43,7 @@ class ProtocolDialog {
                                 fontSize: Dimens.font_sp14),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                WebViewUtils.gotoUserProtocol(
-                                    context: Get.context!);
+                                WebViewUtils.gotoUserProtocol(outsideApp: true);
                               }),
                         TextSpan(
                             text: '和',
@@ -59,7 +58,7 @@ class ProtocolDialog {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 WebViewUtils.gotoPrivateProtocol(
-                                    context: Get.context!);
+                                    outsideApp: true);
                               }),
                         TextSpan(
                           text: '，点击“同意并继续”按钮代表您已同意前述协议及下列约定：'

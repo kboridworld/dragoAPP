@@ -1,16 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:dragoma/application.dart';
 import 'package:dragoma/common/res/dimens.dart';
 import 'package:dragoma/common/res/styles.dart';
-import 'package:dragoma/widgets/image_loader.dart';
 import 'package:dragoma/common/ylz_page.dart';
 import 'package:dragoma/pages/main/index_manager.dart';
 import 'package:dragoma/pages/main/tab/one_page.dart';
 import 'package:dragoma/pages/main/tab/three_page.dart';
 import 'package:dragoma/pages/main/tab/two_page.dart';
-import 'package:dragoma/pages/system/viewModel/system_info_model.dart';
 import 'package:dragoma/utils/dev_utils.dart';
 import 'package:dragoma/utils/toast_utils.dart';
+import 'package:dragoma/widgets/image_loader.dart';
+import 'package:flutter/material.dart';
 
 ///
 /// 主页面入口
@@ -33,11 +32,9 @@ class _MainPageState extends YLZState<MainPage> with WidgetsBindingObserver {
   final List<Widget> _tabBodies = [OnePage(), TwoPage(), ThreePage()];
 
   int _currentIndex = defaultIndex;
-  SystemInfoModel? _systemInfoModel;
 
   @override
   void initState() {
-    _systemInfoModel = SystemInfoModel(context);
     if (needDevelopTool) {
       DevUtils.shared.setup(context);
     }
@@ -52,7 +49,6 @@ class _MainPageState extends YLZState<MainPage> with WidgetsBindingObserver {
 
   @override
   void didAppear(bool firstLoad) {
-    _systemInfoModel?.checkUpdate();
     super.didAppear(firstLoad);
   }
 

@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:dragoma/application.dart';
 import 'package:dragoma/pages/login/user_model.dart';
 import 'package:dragoma/utils/database/ylz_consignor_db.dart';
 import 'package:dragoma/utils/log/ylz_log.dart';
 import 'package:dragoma/utils/log/ylz_log_dao.dart';
 import 'package:dragoma/utils/platform_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 const int kMaxCacheLogRecordCount = 100; // 最大本地缓存数量（超过则立即上报）
 const int kAndroidConsoleMaxLength = 800; // android studio会将log截断
@@ -80,7 +80,7 @@ class YLZLogUtil {
         systemVersion: platformUtils.systemVersion,
         brand: platformUtils.brand,
         deviceName: platformUtils.deviceName,
-        fingerprint: platformUtils.androidDeviceInfo?.fingerprint,
+        fingerprint: platformUtils.androidDeviceInfo.fingerprint,
         platform: platformUtils.platform,
         content: logContent,
         source: source.strValue,

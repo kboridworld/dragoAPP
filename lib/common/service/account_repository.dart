@@ -8,6 +8,7 @@ import 'package:dragoma/utils/platform_utils.dart';
 class AccountRepository {
   ///登录
   static Future login(String phone, String password) async {
+    return {'token':'test'};
     var response = await NHRequest.post(Host.SSO, '/login_by_password',
         params: {
           'userName': phone,
@@ -25,6 +26,7 @@ class AccountRepository {
 
   ///验证码登录
   static Future loginByCode(String phone, String code) async {
+    return {'token':'test'};
     var response = await NHRequest.post(Host.SSO, '/login_by_mobile',
         params: {
           'mobile': phone,
@@ -35,24 +37,6 @@ class AccountRepository {
           'versionCode': PlatformUtils.instance.appVersionInteger,
           'device': PlatformUtils.instance.deviceName
         },
-        noSession: true);
-
-    return response.data['data'];
-  }
-
-  ///一键登录
-  static Future loginByMobile(String token, String verifyId) async {
-    var response = await NHRequest.post(Host.SSO, '/login_by_identity',
-        params: {
-          'identityToken': token,
-          'limitId': verifyId,
-          'clientCode': PlatformUtils.instance.clientCode,
-          'fingerprint': PlatformUtils.instance.deviceId,
-          'version': PlatformUtils.instance.appVersion,
-          'versionCode': PlatformUtils.instance.appVersionInteger,
-          'device': PlatformUtils.instance.deviceName
-        },
-        showToast: false,
         noSession: true);
 
     return response.data['data'];
@@ -91,19 +75,6 @@ class AccountRepository {
           'channel': 'APP_REGISTER',
         });
     return response;
-  }
-
-  /// 通过refresh token自动登录，目的刷新用户信息及token
-  static Future autoLoginByRefreshToken() async {
-    var res = await NHRequest.post(Host.SSO, '/auto_login',
-        params: {
-          'refreshToken': UserModel.shareInstance.refreshToken,
-          'userId': UserModel.shareInstance.userId,
-          'clientCode': PlatformUtils.instance.clientCode,
-        },
-        showToast: false,
-        noSession: true);
-    return res.data['data'];
   }
 
   ///修改密码

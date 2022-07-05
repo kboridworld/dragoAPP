@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:dragoma/utils/location/amap_location.dart';
+import 'package:dragoma/utils/log/ylz_log.dart';
 import 'package:moor/ffi.dart';
 import 'package:moor/moor.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:dragoma/utils/location/amap_location.dart';
-import 'package:dragoma/utils/log/ylz_log.dart';
 
 part 'ylz_consignor_db.g.dart';
 
@@ -28,13 +28,13 @@ class YLZConsignorDB extends _$YLZConsignorDB {
   MigrationStrategy get migration => MigrationStrategy(onCreate: (Migrator m) {
         return m.createAll();
       }, onUpgrade: (Migrator m, int from, int to) async {
-        if (from < 11) {
-          try {
-            await m.addColumn(aMapLocation, aMapLocation.errorCode);
-            await m.addColumn(aMapLocation, aMapLocation.errorInfo);
-          } catch (e) {
-            print(e);
-          }
-        }
+        // if (from < 11) {
+        //   try {
+        //     await m.addColumn(aMapLocation, aMapLocation.errorCode);
+        //     await m.addColumn(aMapLocation, aMapLocation.errorInfo);
+        //   } catch (e) {
+        //     print(e);
+        //   }
+        // }
       });
 }

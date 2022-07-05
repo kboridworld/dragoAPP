@@ -100,10 +100,10 @@ class ImagePickerUtils {
         return null;
       } else {
         if (statues[Permission.camera]!.isDenied) {
-          YLZToastUtils.showToast("未开启运荔枝相机权限，请在设置中开启后重试");
+          YLZToastUtils.showToast("未开启相机权限，请在设置中开启后重试");
           return null;
         } else {
-          YLZToastUtils.showToast("未开启运荔枝文件管理权限，请在设置中开启后重试");
+          YLZToastUtils.showToast("未开启文件管理权限，请在设置中开启后重试");
           return null;
         }
       }
@@ -139,7 +139,7 @@ class ImagePickerUtils {
       if (Platform.isIOS) {
         SystemAuthoritySheet().show(context);
       } else {
-        YLZToastUtils.showToast("未开启运荔枝文件管理权限，请在设置中开启后重试");
+        YLZToastUtils.showToast("未开启文件管理权限，请在设置中开启后重试");
       }
     }
     if (_permanentlyDenied(statues)) {
@@ -181,7 +181,7 @@ class ImagePickerUtils {
       if (Platform.isIOS) {
         SystemAuthoritySheet().show(context);
       } else {
-        YLZToastUtils.showToast("未开启运荔枝文件管理权限，请在设置中开启后重试");
+        YLZToastUtils.showToast("未开启文件管理权限，请在设置中开启后重试");
       }
     }
     if (_permanentlyDenied(statues)) {

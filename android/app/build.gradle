@@ -40,7 +40,7 @@ apply plugin: 'kotlin-android-extensions'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 33
 
     lintOptions {
         disable 'InvalidPackage'
@@ -67,7 +67,7 @@ android {
     defaultConfig {
         applicationId "com.android.dragoma"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled = true
@@ -108,18 +108,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-//  打正式版apk渠道包时开启，平时开发先注释掉
-//    flavorDimensions "channel"
-//    productFlavors {
-//        oppo { dimension "channel" }
-//        vivo { dimension "channel" }
-//        xiaomi { dimension "channel" }
-//        huawei { dimension "channel" }
-//    }
-//    productFlavors.all {
-//        flavor -> flavor.manifestPlaceholders = ['UMENG_CHANNEL_VALUE': name]
-//    }
 }
 
 flutter {

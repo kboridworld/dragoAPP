@@ -1,11 +1,11 @@
+import 'package:dragoma/common/res/gaps.dart';
+import 'package:dragoma/common/res/styles.dart';
+import 'package:dragoma/utils/bounce_tap.dart';
+import 'package:dragoma/utils/dev_utils.dart';
+import 'package:dragoma/widgets/image_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lib_ylz_utils_package/lib_ylz_utils_package.dart';
-import 'package:dragoma/common/res/gaps.dart';
-import 'package:dragoma/common/res/styles.dart';
-import 'package:dragoma/widgets/image_loader.dart';
-import 'package:dragoma/utils/bounce_tap.dart';
-import 'package:dragoma/utils/dev_utils.dart';
 
 class AppBarAction {
   AppBarAction({this.action, this.title, this.icon, this.textColor});
@@ -59,15 +59,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: EdgeInsets.zero,
               child: backImg.isNotTextEmpty
                   ? ImageLoader(backImg!)
-                  : Container(
-                      padding: EdgeInsets.all(12),
-                      child: ImageLoader(
-                        'comm/icon_back_arrow',
-                        width: 20,
-                        height: 20,
+                  : Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        size: 20,
                       ),
                     ),
             ),
+            behavior: HitTestBehavior.opaque,
           )
         : Gaps.empty;
     var actionWidgets = _buildActionWidgets(context);

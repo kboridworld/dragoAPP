@@ -1,13 +1,12 @@
 import 'dart:async';
 
+import 'package:dragoma/pages/base/wrap_bi_controller.dart';
+import 'package:dragoma/pages/login/user_model.dart';
+import 'package:dragoma/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 import 'package:lib_ylz_utils_package/extension/text_utils.dart';
-import 'package:dragoma/pages/base/wrap_bi_controller.dart';
-import 'package:dragoma/pages/login/user_model.dart';
-import 'package:dragoma/utils/toast_utils.dart';
-import 'package:dragoma/utils/web_view_utils.dart';
 
 abstract class AccountController extends WrapBIController {
   final int maxPhoneLength = 11; //手机号的位数
@@ -49,12 +48,6 @@ abstract class AccountController extends WrapBIController {
   /// 如未勾选同意协议复选框，提示是否确认阅读
   showProtocolTips() {
     YLZToastUtils.showToast('请阅读并同意协议');
-  }
-
-  ///
-  /// 跳转协议页面
-  viewProtocol(title, url) {
-    WebViewUtils.gotoCommonWebView(url: url, title: title);
   }
 
   ///

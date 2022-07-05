@@ -93,7 +93,6 @@ class DriverApp extends StatelessWidget {
           child: GetMaterialApp(
             initialRoute: AppRoutes.rootPage,
             getPages: AppRoutes.getPages,
-            defaultTransition: Transition.cupertino,
             unknownRoute: AppRoutes.notFoundPage,
             routingCallback: (routing) {
               RoutingManager.onAppRoutingChange(routing);

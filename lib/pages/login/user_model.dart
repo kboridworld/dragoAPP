@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:dragoma/application.dart';
 import 'package:dragoma/common/const/constant.dart';
+import 'package:dragoma/common/route/app_routes.dart';
 import 'package:dragoma/common/service/account_repository.dart';
 import 'package:dragoma/common/stortage_manager.dart';
-import 'package:dragoma/main.dart';
 import 'package:dragoma/pages/login/model/user_info.dart';
-import 'package:lib_ylz_router_package/lib_ylz_router_package.dart';
+import 'package:get/get.dart';
 import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 import 'package:lib_ylz_utils_package/lib_ylz_utils_package.dart';
 
@@ -15,8 +15,6 @@ class UserModel extends BasicStateModel {
   DriverLoginInfo? _driverLoginInfo;
 
   String get token => _driverLoginInfo?.token ?? '';
-
-  String get refreshToken => _driverLoginInfo?.refreshToken ?? '';
 
   String get userId => _driverLoginInfo?.userId ?? '';
 
@@ -27,8 +25,6 @@ class UserModel extends BasicStateModel {
   String get realName => _pickExtValueByKey('realName');
 
   String get accountName => _pickExtValueByKey('accountName');
-
-  String get companyType => _pickExtValueByKey('companyType');
 
   String get telPhone => _pickExtValueByKey('mobile');
 
@@ -72,7 +68,7 @@ class UserModel extends BasicStateModel {
         _driverLoginInfo?.ext[key] = '';
       });
     } catch (e) {
-      ///ignore
+      // ignore
     }
   }
 
@@ -86,11 +82,6 @@ class UserModel extends BasicStateModel {
     _redirectRouteGoto();
   }
 
-  Future<void> loginByMobile(String token, String verifyId) async {
-    await _dealLogin(await AccountRepository.loginByMobile(token, verifyId));
-    _redirectRouteGoto();
-  }
-
   _dealLogin(loginInfo) async {
     _driverLoginInfo = DriverLoginInfo.fromJson(loginInfo);
     StorageManager.sharedPre
@@ -101,7 +92,7 @@ class UserModel extends BasicStateModel {
   ///
   /// 登录成功时，是否显示切换货主页面判断
   _redirectRouteGoto() {
-    AppNavigator.goBackWithParams(driverAppGlobalKey.currentContext!, true);
+    Get.offNamed(AppRoutes.mainPage);
   }
 
   ///

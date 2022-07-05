@@ -17,8 +17,6 @@ class LoginType {
 class LoginController extends AccountController {
   String? loginType = LoginType.TYPE_CODE;
 
-  var tt = 'test'.obs;
-
   var pwdLoginBtnEnable = false.obs;
 
   var codeLoginBtnEnable = false.obs;

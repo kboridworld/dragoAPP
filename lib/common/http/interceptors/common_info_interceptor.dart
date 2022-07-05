@@ -71,7 +71,7 @@ class CommonInfoInterceptor extends Interceptor {
     customHeader['_brand_'] = platformUtils.brand;
     customHeader['_deviceName_'] = platformUtils.deviceName;
     customHeader['_fingerprint_'] =
-        platformUtils.androidDeviceInfo?.fingerprint ?? '';
+        platformUtils.androidDeviceInfo.fingerprint ?? '';
     var timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     customHeader['_t_'] = timestamp;
     if (this.isValidLocation) {

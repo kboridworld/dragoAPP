@@ -15,25 +15,22 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 获取当前WiFi接入的状态以及WLAN热点的信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 相机权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--    sdk写权限-->
+    <!-- sdk写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--sdk读取权限-->
+    <!-- sdk读权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--安装权限-->
+    <!-- 安装权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <!--震动-->
+    <!-- 震动 -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--NFC-->
-    <uses-permission android:name="android.permission.NFC" />
-    <uses-feature
-        android:name="android.hardware.nfc"
-        android:required="true" />
-
+    <!-- Android10及之后，需要增加后台定位权限 -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".PRJApplication"
