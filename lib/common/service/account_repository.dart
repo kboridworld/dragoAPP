@@ -91,17 +91,6 @@ class AccountRepository {
     return null;
   }
 
-  ///切换货主
-  static Future<DriverLoginInfo> changeConsignor(String customerId) async {
-    var response = await NHRequest.post(
-        Host.BfsUser, '/bfs-user/customer_account/switch_customer',
-        params: {
-          'userId': UserModel.shareInstance.userId,
-          'customerId': customerId,
-        });
-    return DriverLoginInfo.fromJson(response.data['data']);
-  }
-
   ///发送联系人验证码
   static Future<void> getCompanyAuthCode(String phone) async {
     await NHRequest.post(Host.BfsUser, "/customer/apply/send_msg", params: {

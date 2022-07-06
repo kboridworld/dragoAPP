@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dragoma/utils/log/ylz_log.dart';
+import 'package:dragoma/utils/log/ylz_log_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -236,7 +238,8 @@ class _GeolocatorWidgetState extends State<OnePage> {
     _PositionItem _item = _PositionItem(type, displayValue);
     _positionItems.add(_item);
     setState(() {});
-    debugPrint(_item.toString());
+    YLZLogUtil.doRecord('geo信息更新:${_item.toString()}',
+        print: true, type: YLZLogType.plainText, source: YLZLogSource.debug);
   }
 
   bool _isListening() => !(_positionStreamSubscription == null ||

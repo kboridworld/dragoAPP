@@ -875,6 +875,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.11.1"
+  pedometer:
+    dependency: "direct main"
+    description:
+      name: pedometer
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   permission_handler:
     dependency: "direct main"
     description:

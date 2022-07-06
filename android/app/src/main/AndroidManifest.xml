@@ -31,6 +31,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- Android10及之后，需要增加后台定位权限 -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
     <application
         android:name=".PRJApplication"

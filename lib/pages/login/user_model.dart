@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dragoma/application.dart';
 import 'package:dragoma/common/const/constant.dart';
 import 'package:dragoma/common/route/app_routes.dart';
 import 'package:dragoma/common/service/account_repository.dart';
@@ -86,7 +85,6 @@ class UserModel extends BasicStateModel {
     _driverLoginInfo = DriverLoginInfo.fromJson(loginInfo);
     StorageManager.sharedPre
         .setString(Constant.KEY_userSSOV1, jsonEncode(_driverLoginInfo));
-    Application.registerUserInfoForCrashReport();
   }
 
   ///

@@ -77,15 +77,6 @@ class Application {
   }
 
   ///
-  /// 拿到用户信息时，上报用户信息到Bugly
-  static registerUserInfoForCrashReport() {
-    NhFlutterNativeChannel.caller.callNative(
-        moduleName: 'CrashReport',
-        method: 'registerUserInfo',
-        args: [UserModel.shareInstance.telPhone]);
-  }
-
-  ///
   /// 更新app前后台状态
   static updateAppFrontStatus(bool inFront) {
     isForegroundApp = inFront;
