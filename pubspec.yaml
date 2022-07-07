@@ -40,6 +40,8 @@ dependencies:
   archive: ^3.1.6
   get: ^4.6.1
   pedometer: ^3.0.0
+  custom_navigation_bar: ^0.8.2
+  flutter_icons: ^1.1.0
 
   # fork的三方库
   geolocator:
@@ -88,11 +90,6 @@ dependencies:
     git:
       url: git@github.com:DragomaApp/lib_flutter_packages.git
       path: packages/lib_ylz_camera
-      ref: master
-  lib_ylz_router_package:
-    git:
-      url: git@github.com:DragomaApp/lib_flutter_packages.git
-      path: packages/lib_ylz_router_package
       ref: master
   lib_ylz_ui_kit_package:
     git:

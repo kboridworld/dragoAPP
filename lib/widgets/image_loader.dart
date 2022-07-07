@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:lib_ylz_ui_kit_package/ProgressHUD/spin_kit_ring.dart';
-import 'package:lib_ylz_utils_package/lib_ylz_utils_package.dart';
 import 'package:dragoma/common/res/styles.dart';
 import 'package:dragoma/pages/login/user_model.dart';
 import 'package:dragoma/utils/platform_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:lib_ylz_ui_kit_package/ProgressHUD/spin_kit_ring.dart';
+import 'package:lib_ylz_utils_package/lib_ylz_utils_package.dart';
 
 /// 图片加载组件：支持本地图片和网络图片
 class ImageLoader extends StatelessWidget {
@@ -51,7 +51,7 @@ class ImageLoader extends StatelessWidget {
       return CachedNetworkImage(
         imageUrl: url,
         placeholder: (context, url) => Container(
-          color: ColorValues.grey_bg,
+          color: ColorValues.background,
           child: SpinKitRing(
             size: 25,
             lineWidth: 3,
@@ -95,7 +95,9 @@ class ImageLoader extends StatelessWidget {
 
     bool isFirstParam = !name.contains('?');
 
-    return name + (isFirstParam ? '?' : '&') + 'token=${UserModel.shareInstance.token}';
+    return name +
+        (isFirstParam ? '?' : '&') +
+        'token=${UserModel.shareInstance.token}';
   }
 }
 

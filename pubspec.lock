@@ -269,6 +269,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
+  custom_navigation_bar:
+    dependency: "direct main"
+    description:
+      name: custom_navigation_bar
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.8.2"
   dart_style:
     dependency: transitive
     description:
@@ -423,13 +430,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
-  fluro:
-    dependency: transitive
-    description:
-      name: fluro
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.3"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -449,6 +449,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.3.0"
+  flutter_icons:
+    dependency: "direct main"
+    description:
+      name: flutter_icons
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   flutter_image_compress:
     dependency: "direct main"
     description:
@@ -656,15 +663,6 @@ packages:
       url: "git@github.com:DragomaApp/lib_flutter_packages.git"
     source: git
     version: "0.0.1"
-  lib_ylz_router_package:
-    dependency: "direct main"
-    description:
-      path: "packages/lib_ylz_router_package"
-      ref: master
-      resolved-ref: "40bb1dc212f565c19c3c242aab50827edf9d45a4"
-      url: "git@github.com:DragomaApp/lib_flutter_packages.git"
-    source: git
-    version: "1.0.0"
   lib_ylz_ui_kit_package:
     dependency: "direct main"
     description:

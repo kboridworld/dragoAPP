@@ -7,7 +7,7 @@ import 'package:dragoma/pages/login/login_router.dart';
 class LoginHelper {
   ///
   /// 跳转登录页面（不可唤起友盟一键登录）
-  static login({String? loginType = LoginType.TYPE_CODE}) {
+  static login({LoginType? loginType = LoginType.TYPE_CODE}) {
     if (Get.currentRoute == LoginRouter.register)
       Get.offNamed(LoginRouter.login, arguments: loginType);
     else

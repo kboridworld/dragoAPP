@@ -1,12 +1,14 @@
-import 'package:get/get.dart';
-import 'package:lib_ylz_page_lifecycle/base/binding_lifecycle_page.dart';
 import 'package:dragoma/pages/system/controller/console_controller.dart';
 import 'package:dragoma/pages/system/controller/dev_setting_controller.dart';
+import 'package:dragoma/pages/system/controller/system_info_controller.dart';
+import 'package:dragoma/pages/system/controller/update_controller.dart';
 import 'package:dragoma/pages/system/controller/webview_controller.dart';
 import 'package:dragoma/pages/system/page/console_page.dart';
 import 'package:dragoma/pages/system/page/dev_setting_page.dart';
 import 'package:dragoma/pages/system/page/system_info_page.dart';
 import 'package:dragoma/pages/system/page/webview_page.dart';
+import 'package:get/get.dart';
+import 'package:lib_ylz_page_lifecycle/base/binding_lifecycle_page.dart';
 
 class SystemRouter {
   static final commonWeb = '/webViewPage'; //网页
@@ -15,9 +17,15 @@ class SystemRouter {
   static const String devSetting = "/mine/dev/setting"; //调试页
 
   static List<GetPage> getPages = [
-    GetPage(
+    BindingLifecyclePage(
       name: systemInfo,
       page: () => SystemInfoPage(),
+      creator: () => SystemInfoController(),
+      bindings: [
+        BindingsBuilder(() {
+          Get.lazyPut(() => UpdateController());
+        }),
+      ],
     ),
     BindingLifecyclePage(
       name: devSetting,
@@ -27,7 +35,7 @@ class SystemRouter {
     BindingLifecyclePage(
       name: consolePage,
       page: () => ConsolePage(),
-      creator: ()=> ConsoleController(),
+      creator: () => ConsoleController(),
     ),
     // 当url中存在query:auth=1,则代表需要token信息
     // 打开前会在url中新增query:xxxxxx

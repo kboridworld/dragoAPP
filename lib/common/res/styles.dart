@@ -42,8 +42,8 @@ class ColorValues {
 
   static const Color accentOrange = Color(0xFFFFEAD5);
   static const Color accentBlue = Color(0xFFD9E9FC);
-
   static const Color primWarningTips = Color(0xFFED4934);
+  static const Color background = Color(0xFFF5F6F7);
 
   static const Color primaryText = Color(0xFF323233);
   static const Color summaryText = Color(0xFF646566);
@@ -53,7 +53,6 @@ class ColorValues {
   static const Color grey_90 = Color(0xFF909090);
   static const Color grey_bd = Color(0xFFBDBDBD);
   static const Color grey_ccc = Color(0xFFCCCCCC);
-  static const Color grey_bg = Color(0xFFF5F6F7);
   static const Color grey_eaebec = Color(0xFFEAEBEC);
   static const Color grey_e1e4e6 = Color(0xFFE1E4E6);
 

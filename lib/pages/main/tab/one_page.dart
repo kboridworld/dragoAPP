@@ -15,7 +15,11 @@ class OnePage extends StatefulWidget {
   _GeolocatorWidgetState createState() => _GeolocatorWidgetState();
 }
 
-class _GeolocatorWidgetState extends State<OnePage> {
+class _GeolocatorWidgetState extends State<OnePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   static const String _kLocationServicesDisabledMessage =
       'Location services are disabled.';
   static const String _kPermissionDeniedMessage = 'Permission denied.';
@@ -89,6 +93,7 @@ class _GeolocatorWidgetState extends State<OnePage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     const sizedBox = SizedBox(
       height: 10,
     );

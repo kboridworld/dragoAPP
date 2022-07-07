@@ -1,5 +1,7 @@
+import 'package:dragoma/application.dart';
 import 'package:dragoma/common/service/account_repository.dart';
 import 'package:dragoma/pages/login/user_model.dart';
+import 'package:dragoma/utils/dev_utils.dart';
 import 'package:get/get.dart';
 import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 import 'package:lib_ylz_utils_package/extension/text_utils.dart';
@@ -9,13 +11,13 @@ import 'account_controller.dart';
 ///登录类型
 /// code、验证码登录
 /// pwd、账号密码登录
-class LoginType {
-  static const TYPE_CODE = 'code';
-  static const TYPE_PWD = 'pwd';
+enum LoginType {
+  TYPE_CODE,
+  TYPE_PWD,
 }
 
 class LoginController extends AccountController {
-  String? loginType = LoginType.TYPE_CODE;
+  LoginType loginType = LoginType.TYPE_CODE;
 
   var pwdLoginBtnEnable = false.obs;
 
@@ -25,6 +27,14 @@ class LoginController extends AccountController {
   void onInit() {
     loginType = Get.arguments ?? loginType;
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    if (needDevelopTool) {
+      DevUtils.shared.setup(Get.overlayContext);
+    }
+    super.onReady();
   }
 
   refreshLoginBtnEnable() {

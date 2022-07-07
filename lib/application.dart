@@ -9,7 +9,6 @@ import 'package:dragoma/common/http/interceptors/log_interceptor.dart';
 import 'package:dragoma/common/http/interceptors/response_interceptor.dart';
 import 'package:dragoma/common/route/app_routes.dart';
 import 'package:dragoma/common/stortage_manager.dart';
-import 'package:dragoma/pages/login/user_model.dart';
 import 'package:dragoma/utils/database/ylz_consignor_db.dart';
 import 'package:dragoma/utils/env_util.dart';
 import 'package:dragoma/utils/location/amap_location_model.dart';
@@ -18,11 +17,8 @@ import 'package:dragoma/utils/platform_utils.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nh_flutter_native_channel/nh_flutter_native_channel.dart';
 import 'package:nh_flutter_network/network/nh_network_manager.dart';
 import 'package:nh_flutter_network/nh_flutter_network.dart';
-
-import 'pages/login/user_model.dart';
 
 const bool inProduction = const bool.fromEnvironment("dart.vm.product");
 

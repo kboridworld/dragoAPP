@@ -39,7 +39,7 @@ class DevUtils {
     SchedulerBinding.instance!.addPostFrameCallback((value) {
       _entry?.remove();
       _entry = OverlayEntry(builder: (context) => AppDevFloatBox());
-      Overlay.of(context!)!.insert(_entry!);
+      Overlay.of(context!)?.insert(_entry!);
     });
   }
 }

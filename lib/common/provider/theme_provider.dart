@@ -57,10 +57,10 @@ class ThemeProvider extends BasicStateModel {
       indicatorColor:
           isDarkMode ? ColorValues.primaryColor : ColorValues.primaryColor,
       // 页面背景色
-      scaffoldBackgroundColor: isDarkMode ? Colors.black : ColorValues.grey_bg,
+      scaffoldBackgroundColor: isDarkMode ? Colors.black : ColorValues.background,
       // 主要用于Material背景色
       canvasColor: isDarkMode ? Color(0xFF141414) : Colors.white,
-      cardColor: isDarkMode ? Color(0xFF1F1F1F) : ColorValues.grey_bg,
+      cardColor: isDarkMode ? Color(0xFF1F1F1F) : ColorValues.background,
       // 文字选择色（输入框选择文字等）
       // textSelectionColor: Colours.app_main.withAlpha(70),
       // textSelectionHandleColor: Colours.app_main,

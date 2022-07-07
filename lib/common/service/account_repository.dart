@@ -1,14 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:nh_flutter_network/network/client/nh_http_request.dart';
 import 'package:dragoma/common/http/host/constants_host.dart';
-import 'package:dragoma/pages/login/model/user_info.dart';
-import 'package:dragoma/pages/login/user_model.dart';
 import 'package:dragoma/utils/platform_utils.dart';
+import 'package:nh_flutter_network/network/client/nh_http_request.dart';
 
 class AccountRepository {
   ///登录
   static Future login(String phone, String password) async {
-    return {'token':'test'};
+    return {'token': 'test'};
     var response = await NHRequest.post(Host.SSO, '/login_by_password',
         params: {
           'userName': phone,
@@ -26,7 +24,7 @@ class AccountRepository {
 
   ///验证码登录
   static Future loginByCode(String phone, String code) async {
-    return {'token':'test'};
+    return {'token': 'test'};
     var response = await NHRequest.post(Host.SSO, '/login_by_mobile',
         params: {
           'mobile': phone,

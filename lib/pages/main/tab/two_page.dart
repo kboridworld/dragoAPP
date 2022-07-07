@@ -1,3 +1,4 @@
+import 'package:dragoma/common/res/styles.dart';
 import 'package:dragoma/utils/log/ylz_log.dart';
 import 'package:dragoma/utils/log/ylz_log_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +13,10 @@ class TwoPage extends StatefulWidget {
   State<TwoPage> createState() => _TwoPageState();
 }
 
-class _TwoPageState extends State<TwoPage> {
+class _TwoPageState extends State<TwoPage> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = 'unknown';
@@ -72,7 +76,9 @@ class _TwoPageState extends State<TwoPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
+      backgroundColor: ColorValues.background,
       appBar: AppBar(title: Text('TwoPage')),
       body: Center(
         child: Column(

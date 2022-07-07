@@ -2,20 +2,19 @@ import 'dart:async';
 import 'dart:isolate';
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:dragoma/application.dart';
+import 'package:dragoma/common/provider/provider_manager.dart';
+import 'package:dragoma/common/res/strings.dart';
+import 'package:dragoma/common/route/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:lib_ylz_page_lifecycle/base/routing_manager.dart';
-import 'package:lib_ylz_router_package/lib_ylz_router_package.dart';
 import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:dragoma/application.dart';
-import 'package:dragoma/common/provider/provider_manager.dart';
-import 'package:dragoma/common/res/strings.dart';
-import 'package:dragoma/common/route/app_routes.dart';
 
 import 'common/res/styles.dart';
 
@@ -98,14 +97,11 @@ class DriverApp extends StatelessWidget {
               RoutingManager.onAppRoutingChange(routing);
             },
             navigatorKey: driverAppGlobalKey,
-            navigatorObservers: [
-              RouteManager.routeObserver,
-              BotToastNavigatorObserver()
-            ],
+            navigatorObservers: [BotToastNavigatorObserver()],
             title: YlzString.appName,
             theme: ThemeData(
               primarySwatch: greenTheme,
-              scaffoldBackgroundColor: ColorValues.grey_bg,
+              scaffoldBackgroundColor: ColorValues.background,
             ),
             locale: const Locale('zh'),
             localizationsDelegates: [

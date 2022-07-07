@@ -1,22 +1,25 @@
 import 'dart:io';
 
-import 'package:dragoma/utils/database/ylz_consignor_db.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:wifi/wifi.dart';
 import 'package:dragoma/application.dart';
+import 'package:dragoma/utils/database/ylz_consignor_db.dart';
 import 'package:dragoma/utils/log/ylz_log.dart';
 import 'package:dragoma/utils/log/ylz_log_dao.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:wifi/wifi.dart';
 
 enum WebServerStatus { running, stopped }
 
-class WebConsoleModel {
-  static final WebConsoleModel _instance = WebConsoleModel._internal();
-  WebConsoleModel._internal() {
+class WebConsoleUtils {
+  static final WebConsoleUtils _instance = WebConsoleUtils._internal();
+
+  WebConsoleUtils._internal() {
     this.serverStatus = WebServerStatus.stopped;
     this.webServerPath = '';
   }
-  factory WebConsoleModel() => _instance;
-  static WebConsoleModel get shared => _instance;
+
+  factory WebConsoleUtils() => _instance;
+
+  static WebConsoleUtils get shared => _instance;
 
   WebServerStatus? serverStatus;
   late String webServerPath;
@@ -44,7 +47,7 @@ class WebConsoleModel {
         String result = '';
         records.forEach((element) {
           result +=
-              '${element.headerTitle()} \n\n ${element.logInfoForWebConsole()}\n\n=====================================\n\n';
+          '${element.headerTitle()} \n\n ${element.logInfoForWebConsole()}\n\n=====================================\n\n';
         });
         req.response.write(result);
       } catch (e) {

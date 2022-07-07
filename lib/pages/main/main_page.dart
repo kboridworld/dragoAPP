@@ -1,95 +1,18 @@
-import 'package:dragoma/application.dart';
-import 'package:dragoma/common/res/dimens.dart';
-import 'package:dragoma/common/res/styles.dart';
-import 'package:dragoma/common/ylz_page.dart';
-import 'package:dragoma/pages/main/index_manager.dart';
-import 'package:dragoma/pages/main/tab/one_page.dart';
-import 'package:dragoma/pages/main/tab/three_page.dart';
-import 'package:dragoma/pages/main/tab/two_page.dart';
-import 'package:dragoma/utils/dev_utils.dart';
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:dragoma/pages/main/controller/main_controller.dart';
 import 'package:dragoma/utils/toast_utils.dart';
 import 'package:dragoma/widgets/image_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 ///
 /// 主页面入口
-class MainPage extends YLZPage {
-  final String? index;
-
-  MainPage({this.index});
-
-  @override
-  YLZState<YLZPage> createYLZState() => _MainPageState();
-}
-
-class _MainPageState extends YLZState<MainPage> with WidgetsBindingObserver {
-  final List _tabIcons = [
-    ['tab/icon_tab_bar_send_normal', 'tab/icon_tab_bar_send_select'],
-    ['tab/icon_tab_bar_order_normal', 'tab/icon_tab_bar_order_select'],
-    ['tab/icon_tab_bar_my_normal', 'tab/icon_tab_bar_my_select'],
-  ];
-  final List _tabLabels = ['首页', '订单', '我的'];
-  final List<Widget> _tabBodies = [OnePage(), TwoPage(), ThreePage()];
-
-  int _currentIndex = defaultIndex;
-
-  @override
-  void initState() {
-    if (needDevelopTool) {
-      DevUtils.shared.setup(context);
-    }
-    MainTabBarManager.streamController.stream.listen((data) {
-      if (!mounted) return;
-      setState(() {
-        _currentIndex = data;
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  void didAppear(bool firstLoad) {
-    super.didAppear(firstLoad);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-        body: IndexedStack(
-          index: _currentIndex,
-          children: _tabBodies,
-        ),
-        bottomNavigationBar: Theme(
-          data: ThemeData(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-          ),
-          child: BottomNavigationBar(
-            items: _buildNavigationBarItems(),
-            currentIndex: _currentIndex,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            selectedFontSize: Dimens.font_sp12,
-            unselectedFontSize: Dimens.font_sp12,
-            selectedItemColor: ColorValues.primaryColor,
-            onTap: (index) {
-              MainTabBarManager().updateIndex(index);
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  int last = 0;
-
+class MainPage extends GetView<MainController> {
   Future<bool> _onWillPop() {
     //计算两次时间间隔
     int now = DateTime.now().millisecondsSinceEpoch;
-    if (now - last > 2000) {
-      last = DateTime.now().millisecondsSinceEpoch;
+    if (now - controller.last > 2000) {
+      controller.last = DateTime.now().millisecondsSinceEpoch;
       YLZToastUtils.showToast('再次点击返回退出应用');
       return Future.value(false);
     } else {
@@ -97,31 +20,59 @@ class _MainPageState extends YLZState<MainPage> with WidgetsBindingObserver {
     }
   }
 
-  _buildNavigationBarItems() {
-    return _tabLabels.map((label) {
-      int index = _tabLabels.indexOf(label);
-      return BottomNavigationBarItem(
-        icon: ImageLoader(_tabIcons[index][0], width: 24),
-        activeIcon: ImageLoader(_tabIcons[index][1], width: 24),
-        label: label,
-        tooltip: '',
-      );
-    }).toList();
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            PageView(
+              controller: controller.pageController,
+              children: controller.tabBodies,
+              onPageChanged: _onPageChanged,
+              // physics: NeverScrollableScrollPhysics(), // 禁止滑动
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0) +
+                  EdgeInsets.only(bottom: 30),
+              child: Obx(() => _buildFloatingBar()),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
-        break;
-      case AppLifecycleState.resumed: //从后台切换前台，界面可见
-        Application.updateAppFrontStatus(true);
-        break;
-      case AppLifecycleState.paused: // 界面不可见，后台
-        Application.updateAppFrontStatus(false);
-        break;
-      case AppLifecycleState.detached: // APP结束时调用
-        break;
-    }
+  void _onPageChanged(int index) {
+    controller.changeCurrentIndex(index);
+  }
+
+  Widget _buildFloatingBar() {
+    return CustomNavigationBar(
+      strokeColor: Colors.transparent,
+      unSelectedColor: Colors.grey[600],
+      backgroundColor: Colors.white,
+      borderRadius: Radius.circular(30.0),
+      items: _buildNavigationBarItems(),
+      currentIndex: controller.currentIndex,
+      onTap: (index) {
+        controller.changeCurrentIndex(index);
+        controller.pageController.jumpToPage(index);
+      },
+      isFloating: true,
+    );
+  }
+
+  List<CustomNavigationBarItem> _buildNavigationBarItems() {
+    return controller.tabLabels.map((label) {
+      int index = controller.tabLabels.indexOf(label);
+      return CustomNavigationBarItem(
+        icon: ImageLoader(controller.tabIcons[index][0], width: 24),
+        selectedIcon: ImageLoader(controller.tabIcons[index][1], width: 24),
+        title: Text(label),
+      );
+    }).toList();
   }
 }

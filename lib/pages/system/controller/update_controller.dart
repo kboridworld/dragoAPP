@@ -3,56 +3,30 @@ import 'dart:convert';
 import 'package:dragoma/common/const/constant.dart';
 import 'package:dragoma/common/http/host/constants_host.dart';
 import 'package:dragoma/common/stortage_manager.dart';
+import 'package:dragoma/pages/base/wrap_bi_controller.dart';
 import 'package:dragoma/pages/login/user_model.dart';
 import 'package:dragoma/pages/upgrade/app_upgrade_dialog_widget.dart';
 import 'package:dragoma/utils/platform_utils.dart';
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 import 'package:lib_ylz_upgrade_package/lib_ylz_upgrade_package.dart';
-import 'package:lib_ylz_utils_package/extension/text_utils.dart';
+import 'package:lib_ylz_utils_package/lib_ylz_utils_package.dart';
 import 'package:provider/provider.dart';
 
-class SystemInfoModel extends BasicStateModel {
+class UpdateController extends WrapBIController {
   static const int checkUpdateExpiredTime = 1 * 60 * 60 * 1000; //1小时
 
-  final BuildContext _context;
-
-  String version = '';
-  String buildNumber = '';
-  String deviceName = '';
-  String systemVersion = '';
-  String deviceID = '';
-  bool showDetailContent = UserModel.shareInstance.telPhone != '19900000000';
-  bool needUpdate = false;
-  bool hasNotificationPermission = false;
-  String fingerprint = '';
-  String manufacturer = '';
   bool _didShowUpdateAlert = false;
 
   late UpgradeViewModel _upgradeViewModel;
 
-  SystemInfoModel(this._context) {
-    _upgradeViewModel = Provider.of<UpgradeViewModel>(_context, listen: false);
-  }
+  UpgradeViewModel get upgradeViewModel => _upgradeViewModel;
 
-  String get appDisplayVersion {
-    return 'v${this.version}(${this.buildNumber})';
-  }
-
-  Future<void> fetchSystemInfo() async {
-    PlatformUtils platformUtils = PlatformUtils.instance;
-    version = platformUtils.appVersion;
-    buildNumber = platformUtils.buildNum;
-    deviceName = platformUtils.brand + " " + platformUtils.deviceName;
-    systemVersion = '${platformUtils.systemVersion}';
-    if (Platform.isAndroid) {
-      systemVersion += '- ${platformUtils.androidDeviceInfo.hardware}';
-      fingerprint = platformUtils.androidDeviceInfo.display ?? '';
-    }
-    deviceID = platformUtils.deviceId;
-    needUpdate = _upgradeViewModel.upgradeModel?.hasUpgrade ?? false;
-    manufacturer = platformUtils.manufacturer;
-    notifyListeners();
+  @override
+  void onInit() {
+    _upgradeViewModel =
+        Provider.of<UpgradeViewModel>(Get.context!, listen: false);
+    super.onInit();
   }
 
   Future<void> updateDownload() async {
@@ -66,7 +40,7 @@ class SystemInfoModel extends BasicStateModel {
     if (_didShowUpdateAlert) return;
     if (!_isStorageExpired(checkUpdateExpiredTime)) return;
     UpgradeUtil.checkUpdate(
-        context: _context,
+        context: Get.context!,
         widget: AppUpgradeDialogWidget(),
         hostAlias: Host.BfsUser,
         clientCode: PlatformUtils.instance.clientCode,

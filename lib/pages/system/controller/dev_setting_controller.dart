@@ -3,7 +3,7 @@ import 'package:dragoma/common/const/constant.dart';
 import 'package:dragoma/common/stortage_manager.dart';
 import 'package:dragoma/pages/base/wrap_bi_controller.dart';
 import 'package:dragoma/pages/login/user_model.dart';
-import 'package:dragoma/pages/system/viewModel/web_console_model.dart';
+import 'package:dragoma/utils/web_console_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nh_flutter_network/nh_flutter_network.dart';
@@ -24,14 +24,14 @@ class DevSettingController extends WrapBIController {
   // 访问日志查询
   var isWebServerRunning = false.obs;
 
-  String get webServerPath => WebConsoleModel.shared.webServerPath;
+  String get webServerPath => WebConsoleUtils.shared.webServerPath;
 
   @override
   void onInit() {
     AppEnv env = enumFromString(AppEnv.values, defaultEnv) ?? AppEnv.PROD;
     index.value =
         StorageManager.sharedPre.getInt(Constant.KEY_env) ?? env.index;
-    isWebServerRunning.value = WebConsoleModel.shared.isServerRunning;
+    isWebServerRunning.value = WebConsoleUtils.shared.isServerRunning;
     super.onInit();
   }
 
@@ -64,13 +64,13 @@ class DevSettingController extends WrapBIController {
   }
 
   void startWebServer() {
-    WebConsoleModel.shared.start(onStarted: () {
-      isWebServerRunning.value = WebConsoleModel.shared.isServerRunning;
+    WebConsoleUtils.shared.start(onStarted: () {
+      isWebServerRunning.value = WebConsoleUtils.shared.isServerRunning;
     });
   }
 
   void stopWebServer() async {
-    await WebConsoleModel.shared.stop();
-    isWebServerRunning.value = WebConsoleModel.shared.isServerRunning;
+    await WebConsoleUtils.shared.stop();
+    isWebServerRunning.value = WebConsoleUtils.shared.isServerRunning;
   }
 }
