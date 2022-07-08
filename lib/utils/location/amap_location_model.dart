@@ -51,7 +51,9 @@ class LocationUtils {
 
   late LocationDao _locationDao;
 
-  void setup() {}
+  void setup() {
+    _recordLocation(null);
+  }
 
   ///
   /// 获取最近的一条定位数据

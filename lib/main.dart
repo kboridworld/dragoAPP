@@ -43,7 +43,7 @@ void main() {
   }).sendPort);
 
   runZonedGuarded<Future<void>>(() async {
-    Application.appInitializer().then((value) {
+    Application.appInitializer().then((value) async {
       runApp(DriverApp());
     });
   }, (dynamic error, StackTrace stackTrace) {

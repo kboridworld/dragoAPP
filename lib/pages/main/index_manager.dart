@@ -2,7 +2,7 @@ import 'dart:async';
 
 ///
 /// 主页tab栏管理类
-const int defaultIndex = MainTabBarManager.TAB_INDEX_ONE;
+const int defaultIndex = MainTabBarManager.TAB_INDEX_THREE;
 
 class MainTabBarManager {
   static const int TAB_INDEX_ONE = 0;

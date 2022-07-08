@@ -4,12 +4,12 @@ import 'package:dragoma/common/const/constant.dart';
 import 'package:dragoma/common/route/app_routes.dart';
 import 'package:dragoma/common/service/account_repository.dart';
 import 'package:dragoma/common/stortage_manager.dart';
+import 'package:dragoma/pages/base/wrap_bi_controller.dart';
 import 'package:dragoma/pages/login/model/user_info.dart';
 import 'package:get/get.dart';
-import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 import 'package:lib_ylz_utils_package/lib_ylz_utils_package.dart';
 
-class UserModel extends BasicStateModel {
+class UserModel extends WrapBIController {
   ///当前账户信息
   DriverLoginInfo? _driverLoginInfo;
 
@@ -27,31 +27,17 @@ class UserModel extends BasicStateModel {
 
   String get telPhone => _pickExtValueByKey('mobile');
 
-  static UserModel? _userModel;
-
-  factory UserModel() => _getUserModel();
-
-  UserModel._instance();
-
-  static UserModel get shareInstance => _getUserModel();
-
-  static UserModel _getUserModel() {
-    if (_userModel == null) {
-      _userModel = UserModel._instance();
-      var userJson = StorageManager.sharedPre.getString(Constant.KEY_userSSOV1);
-      if (userJson != null) {
-        _userModel!._driverLoginInfo =
-            DriverLoginInfo.fromJson(jsonDecode(userJson));
-      }
-    }
-    return _userModel!;
-  }
-
   ///
   /// 初始化缓存数据
   static init() async {
-    _getUserModel();
+    Get.lazyPut(() => UserModel());
+    var userJson = StorageManager.sharedPre.getString(Constant.KEY_userSSOV1);
+    if (userJson != null) {
+      shareInstance._driverLoginInfo = DriverLoginInfo.fromJson(jsonDecode(userJson));
+    }
   }
+
+  static UserModel get shareInstance => Get.find();
 
   _pickExtValueByKey(String key) {
     try {
@@ -71,6 +57,10 @@ class UserModel extends BasicStateModel {
     }
   }
 
+  Future<void> relogin() async {
+    await _dealLogin({'token': 'tt'});
+  }
+
   Future<void> login(String phone, String password) async {
     await _dealLogin(await AccountRepository.login(phone, password));
     _redirectRouteGoto();
@@ -85,6 +75,7 @@ class UserModel extends BasicStateModel {
     _driverLoginInfo = DriverLoginInfo.fromJson(loginInfo);
     StorageManager.sharedPre
         .setString(Constant.KEY_userSSOV1, jsonEncode(_driverLoginInfo));
+    update();
   }
 
   ///
@@ -109,6 +100,6 @@ class UserModel extends BasicStateModel {
       StorageManager.sharedPre
           .setString(Constant.KEY_userSSOV1, jsonEncode(_driverLoginInfo));
     }
-    notifyListeners();
+    update();
   }
 }

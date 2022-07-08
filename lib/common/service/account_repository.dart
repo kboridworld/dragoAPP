@@ -7,37 +7,11 @@ class AccountRepository {
   ///登录
   static Future login(String phone, String password) async {
     return {'token': 'test'};
-    var response = await NHRequest.post(Host.SSO, '/login_by_password',
-        params: {
-          'userName': phone,
-          'password': password,
-          'clientCode': PlatformUtils.instance.clientCode,
-          'fingerprint': PlatformUtils.instance.deviceId,
-          'version': PlatformUtils.instance.appVersion,
-          'versionCode': PlatformUtils.instance.appVersionInteger,
-          'device': PlatformUtils.instance.deviceName
-        },
-        noSession: true);
-
-    return response.data['data'];
   }
 
   ///验证码登录
   static Future loginByCode(String phone, String code) async {
     return {'token': 'test'};
-    var response = await NHRequest.post(Host.SSO, '/login_by_mobile',
-        params: {
-          'mobile': phone,
-          'smsCode': code,
-          'clientCode': PlatformUtils.instance.clientCode,
-          'fingerprint': PlatformUtils.instance.deviceId,
-          'version': PlatformUtils.instance.appVersion,
-          'versionCode': PlatformUtils.instance.appVersionInteger,
-          'device': PlatformUtils.instance.deviceName
-        },
-        noSession: true);
-
-    return response.data['data'];
   }
 
   /// 获取登录时的验证码

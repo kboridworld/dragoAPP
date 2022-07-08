@@ -5,9 +5,7 @@ import 'package:dragoma/common/res/styles.dart';
 import 'package:dragoma/pages/login/controller/register_controller.dart';
 import 'package:dragoma/pages/login/login_helper.dart';
 import 'package:dragoma/pages/login/widget/account_protocol_widget.dart';
-import 'package:dragoma/pages/login/widget/input_row.dart';
 import 'package:dragoma/widgets/comm_btn_widget.dart';
-import 'package:dragoma/widgets/image_loader.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +17,6 @@ import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart'
 class RegisterPage extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
-    double headerHeight = MediaQuery.of(context).size.width / 375 * 280;
     double headerShowHeight = MediaQuery.of(context).size.width / 375 * 235;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -100,11 +97,6 @@ class RegisterPage extends GetView<RegisterController> {
                   return null;
                 },
                 decoration: InputDecoration(
-                  icon: ImageLoader(
-                    'user/icon_login_tips_phone',
-                    width: 24,
-                    color: ColorValues.tipsText,
-                  ),
                   border: InputBorder.none,
                   hintText: '请输入手机号',
                   hintStyle: TextStyle(
@@ -124,69 +116,112 @@ class RegisterPage extends GetView<RegisterController> {
               SizedBox(height: 20),
 
               /// 验证码
-              Obx(() => InputRow(
-                    '',
-                    maxLength: 4,
-                    enable: controller.getCodeBtnEnable.isTrue,
-                    placeholder: '请输入手机验证码',
-                    controller: controller.codeEditController,
-                    focusNode: controller.codeFocusNode,
-                    keyboardType: TextInputType.number,
-                    actionName: controller.countdownNum.value == 0
-                        ? '获取验证码'
-                        : "${controller.countdownNum}秒可重发",
-                    onAction: () {
-                      if (controller.countdownNum.value <= 0) {
-                        controller.getAuthCode();
-                      }
-                    },
-                    titleWidth: 0,
-                    onEditingComplete: () {
-                      controller.pwdFocusNode.requestFocus();
-                    },
-                    onChanged: (String text) {
-                      controller.refreshRegisterBtnStatus();
-                    },
-                  )),
+              Row(
+                children: [
+                  Expanded(
+                    child: CleanSuffixTextField(
+                      style: TextStyle(
+                          color: ColorValues.primaryText,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
+                      keyboardType: TextInputType.number,
+                      controller: controller.codeEditController,
+                      focusNode: controller.codeFocusNode,
+                      maxLength: 4,
+                      buildCounter: (BuildContext context,
+                          {required int currentLength,
+                          int? maxLength,
+                          required bool isFocused}) {
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '请输入手机验证码',
+                        hintStyle: TextStyle(
+                            color: ColorValues.grey_ccc,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      onEditingComplete: () {
+                        controller.pwdFocusNode.requestFocus();
+                      },
+                      onChanged: (String text) {
+                        controller.refreshRegisterBtnStatus();
+                      },
+                    ),
+                  ),
+                ],
+              ),
               Gaps.hLin,
 
               SizedBox(height: 20),
 
               /// 密码
-              Obx(() => Row(
-                    children: [
-                      Expanded(
-                        child: CleanSuffixTextField(
-                          style: TextStyle(
-                              color: ColorValues.primaryText,
+              Obx(
+                () => Row(
+                  children: [
+                    Expanded(
+                      child: CleanSuffixTextField(
+                        style: TextStyle(
+                            color: ColorValues.primaryText,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                        obscureText: controller.isObscureText.value,
+                        controller: controller.pwdEditController,
+                        focusNode: controller.pwdFocusNode,
+                        maxLength: controller.maxPwdLength,
+                        buildCounter: (BuildContext context,
+                            {required int currentLength,
+                            int? maxLength,
+                            required bool isFocused}) {
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: '请输入6-18位密码',
+                          hintStyle: TextStyle(
+                              color: ColorValues.grey_ccc,
                               fontSize: 17,
                               fontWeight: FontWeight.bold),
-                          obscureText: controller.isObscureText.value,
-                          controller: controller.pwdEditController,
-                          focusNode: controller.pwdFocusNode,
-                          maxLength: controller.maxPwdLength,
-                          buildCounter: (BuildContext context,
-                              {required int currentLength,
-                              int? maxLength,
-                              required bool isFocused}) {
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            icon: ImageLoader(
-                              'user/icon_login_tips_pwd',
-                              width: 24,
-                              color: ColorValues.tipsText,
-                            ),
-                            border: InputBorder.none,
-                            hintText: '请输入6-18位密码',
-                            hintStyle: TextStyle(
-                                color: ColorValues.grey_ccc,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          onEditingComplete: () {
+                        ),
+                        onEditingComplete: () {
+                          controller.pwdFocusNode.unfocus();
+                          if (controller.registerBtnEnable.isFalse) return;
+                          if (controller.isAgreeProtocol.isFalse) {
+                            controller.showProtocolTips();
+                            return;
+                          }
+                          controller.registerByAccount(
+                              controller.phoneEditController.text,
+                              controller.pwdEditController.text,
+                              controller.codeEditController.text);
+                        },
+                        onChanged: (String text) {
+                          controller.refreshRegisterBtnStatus();
+                        },
+                      ),
+                    ),
+                    IconButton(
+                      icon: controller.isObscureText.isTrue
+                          ? Icon(Icons.remove_red_eye)
+                          : Icon(Icons.remove_red_eye_outlined),
+                      onPressed: controller.changeObscureText,
+                    )
+                  ],
+                ),
+              ),
+              Gaps.hLin,
+              AccountProtocolWidget(controller: controller),
+              SizedBox(height: 16),
+
+              Obx(() => CommonBtnWidget.buttonWidget(
+                    Get.context!,
+                    YlzString.register,
+                    controller.registerBtnEnable.isTrue
+                        ? () {
+                            controller.phoneFocusNode.unfocus();
+                            controller.codeFocusNode.unfocus();
                             controller.pwdFocusNode.unfocus();
-                            if (controller.registerBtnEnable.isFalse) return;
                             if (controller.isAgreeProtocol.isFalse) {
                               controller.showProtocolTips();
                               return;
@@ -195,49 +230,8 @@ class RegisterPage extends GetView<RegisterController> {
                                 controller.phoneEditController.text,
                                 controller.pwdEditController.text,
                                 controller.codeEditController.text);
-                          },
-                          onChanged: (String text) {
-                            controller.refreshRegisterBtnStatus();
-                          },
-                        ),
-                      ),
-                      IconButton(
-                        icon: controller.isObscureText.isTrue
-                            ? ImageLoader(
-                                'user/icon_pwd_hide',
-                                width: 24,
-                                height: 24,
-                              )
-                            : ImageLoader(
-                                'user/icon_pwd_show',
-                                width: 24,
-                                height: 24,
-                              ),
-                        onPressed: controller.changeObscureText,
-                      )
-                    ],
-                  )),
-              Gaps.hLin,
-              AccountProtocolWidget(controller: controller),
-              SizedBox(height: 16),
-
-              Obx(() => CommonBtnWidget.buttonWidget(
-                    Get.context!,
-                    YlzString.register,
-                    () {
-                      controller.phoneFocusNode.unfocus();
-                      controller.codeFocusNode.unfocus();
-                      controller.pwdFocusNode.unfocus();
-                      if (controller.isAgreeProtocol.isFalse) {
-                        controller.showProtocolTips();
-                        return;
-                      }
-                      controller.registerByAccount(
-                          controller.phoneEditController.text,
-                          controller.pwdEditController.text,
-                          controller.codeEditController.text);
-                    },
-                    enable: controller.registerBtnEnable.isTrue,
+                          }
+                        : null,
                   )),
             ],
           ),

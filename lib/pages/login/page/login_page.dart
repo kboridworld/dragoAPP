@@ -5,7 +5,6 @@ import 'package:dragoma/common/res/styles.dart';
 import 'package:dragoma/pages/login/controller/login_controller.dart';
 import 'package:dragoma/pages/login/login_helper.dart';
 import 'package:dragoma/pages/login/widget/account_protocol_widget.dart';
-import 'package:dragoma/pages/login/widget/input_row.dart';
 import 'package:dragoma/widgets/comm_btn_widget.dart';
 import 'package:dragoma/widgets/image_loader.dart';
 import 'package:flutter/gestures.dart';
@@ -19,7 +18,6 @@ import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart'
 class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
-    double headerHeight = Get.width / 375 * 280;
     double headerShowHeight = Get.width / 375 * 235;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -223,16 +221,17 @@ class LoginPage extends GetView<LoginController> {
         Obx(() => CommonBtnWidget.buttonWidget(
               Get.context!,
               YlzString.login,
-              () {
-                controller.pwdFocusNode.unfocus();
-                controller.phoneFocusNode.unfocus();
-                if (controller.isAgreeProtocol.isFalse) {
-                  controller.showProtocolTips();
-                  return;
-                }
-                action.call();
-              },
-              enable: controller.pwdLoginBtnEnable.isTrue,
+              controller.pwdLoginBtnEnable.isTrue
+                  ? () {
+                      controller.pwdFocusNode.unfocus();
+                      controller.phoneFocusNode.unfocus();
+                      if (controller.isAgreeProtocol.isFalse) {
+                        controller.showProtocolTips();
+                        return;
+                      }
+                      action.call();
+                    }
+                  : null,
             )),
       ],
     );
@@ -260,11 +259,6 @@ class LoginPage extends GetView<LoginController> {
             return null;
           },
           decoration: InputDecoration(
-            icon: ImageLoader(
-              'user/icon_login_tips_phone',
-              width: 24,
-              color: ColorValues.tipsText,
-            ),
             border: InputBorder.none,
             hintText: '请输入手机号',
             hintStyle: TextStyle(
@@ -283,53 +277,68 @@ class LoginPage extends GetView<LoginController> {
         SizedBox(height: 20),
 
         /// 验证码
-        Obx(() => InputRow(
-              '',
-              maxLength: 4,
-              enable: controller.getCodeBtnEnable.isTrue,
-              placeholder: '请输入手机验证码',
-              controller: controller.codeEditController,
-              focusNode: controller.codeFocusNode,
-              keyboardType: TextInputType.number,
-              actionName: controller.countdownNum <= 0
-                  ? '获取验证码'
-                  : "${controller.countdownNum}秒可重发",
-              onAction: () {
-                if (controller.countdownNum <= 0) {
-                  controller.getAuthCode();
-                }
-              },
-              titleWidth: 0,
-              onEditingComplete: () {
-                if (!controller.codeLoginBtnEnable.value) return;
-                controller.codeFocusNode.unfocus();
-                if (controller.isAgreeProtocol.isFalse) {
-                  controller.showProtocolTips();
-                  return;
-                }
-                action.call();
-              },
-              onChanged: (String text) {
-                controller.refreshLoginBtnEnable();
-              },
-            )),
+        Row(
+          children: [
+            Expanded(
+              child: CleanSuffixTextField(
+                style: TextStyle(
+                    color: ColorValues.primaryText,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold),
+                keyboardType: TextInputType.number,
+                controller: controller.codeEditController,
+                focusNode: controller.codeFocusNode,
+                maxLength: 4,
+                buildCounter: (BuildContext context,
+                    {required int currentLength,
+                      int? maxLength,
+                      required bool isFocused}) {
+                  return null;
+                },
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: '请输入手机验证码',
+                  hintStyle: TextStyle(
+                      color: ColorValues.grey_ccc,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold),
+                ),
+                onEditingComplete: () {
+                  if (!controller.codeLoginBtnEnable.value) return;
+                  controller.codeFocusNode.unfocus();
+                  if (controller.isAgreeProtocol.isFalse) {
+                    controller.showProtocolTips();
+                    return;
+                  }
+                  action.call();
+                },
+                onChanged: (String text) {
+                  controller.refreshLoginBtnEnable();
+                },
+              ),
+            ),
+          ],
+        ),
         Gaps.hLin,
         AccountProtocolWidget(controller: controller),
         SizedBox(height: 16),
-        Obx(() => CommonBtnWidget.buttonWidget(
-              Get.context!,
-              YlzString.login,
-              () {
-                controller.codeFocusNode.unfocus();
-                controller.phoneFocusNode.unfocus();
-                if (controller.isAgreeProtocol.isFalse) {
-                  controller.showProtocolTips();
-                  return;
-                }
-                action.call();
-              },
-              enable: controller.codeLoginBtnEnable.isTrue,
-            )),
+        Obx(
+          () => CommonBtnWidget.buttonWidget(
+            Get.context!,
+            YlzString.login,
+            controller.codeLoginBtnEnable.isTrue
+                ? () {
+                    controller.codeFocusNode.unfocus();
+                    controller.phoneFocusNode.unfocus();
+                    if (controller.isAgreeProtocol.isFalse) {
+                      controller.showProtocolTips();
+                      return;
+                    }
+                    action.call();
+                  }
+                : null,
+          ),
+        ),
       ],
     );
   }

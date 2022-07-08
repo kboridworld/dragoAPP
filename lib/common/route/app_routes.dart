@@ -4,6 +4,9 @@ import 'package:dragoma/pages/guide/page/guide_screen_page.dart';
 import 'package:dragoma/pages/login/login_router.dart';
 import 'package:dragoma/pages/main/controller/main_controller.dart';
 import 'package:dragoma/pages/main/main_page.dart';
+import 'package:dragoma/pages/main/tab/four_page.dart';
+import 'package:dragoma/pages/main/tab/three_page.dart';
+import 'package:dragoma/pages/main/tab/two_page.dart';
 import 'package:dragoma/pages/system/page/not_found_page.dart';
 import 'package:dragoma/pages/system/system_router.dart';
 import 'package:get/get.dart';
@@ -35,6 +38,17 @@ class AppRoutes {
       name: mainPage,
       page: () => MainPage(),
       creator: () => MainController(),
+      bindings: [
+        BindingsBuilder(() {
+          Get.lazyPut(() => TwoTabController());
+        }),
+        BindingsBuilder(() {
+          Get.lazyPut(() => ThreeTabController());
+        }),
+        BindingsBuilder(() {
+          Get.lazyPut(() => FourTabController());
+        }),
+      ],
       middlewares: [UnLoginMiddleware()],
     ),
   ];

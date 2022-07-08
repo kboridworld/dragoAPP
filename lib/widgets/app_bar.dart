@@ -18,6 +18,9 @@ class AppBarAction {
 
 /// 全局自定义AppBar:支持多个右侧操作按钮，操作按钮超过2个则已pop menu形式展示
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  static const double _defaultElevation = 4.0;
+  static const Color _defaultShadowColor = Color(0xFF000000);
+
   const CustomAppBar(
       {Key? key,
       this.backgroundColor = Colors.white,
@@ -26,7 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.actions,
       this.isBack = true,
       this.backgroundImageName,
-      this.statusBarStyle = SystemUiOverlayStyle.dark,
+      this.statusBarStyle,
       this.goBack,
       this.elevation})
       : super(key: key);
@@ -36,7 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? backImg;
   final List<AppBarAction>? actions;
   final bool isBack;
-  final SystemUiOverlayStyle statusBarStyle;
+  final SystemUiOverlayStyle? statusBarStyle;
   final VoidCallback? goBack;
   final double? elevation;
 
@@ -90,10 +93,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       },
     );
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: statusBarStyle,
+      value: statusBarStyle ??
+          (ThemeData.estimateBrightnessForColor(_bgColor) == Brightness.dark
+              ? SystemUiOverlayStyle.light
+              : SystemUiOverlayStyle.dark),
       child: Material(
         color: _bgColor,
-        elevation: elevation ?? Theme.of(context).appBarTheme.elevation ?? 0,
+        elevation: elevation ?? _defaultElevation,
+        shadowColor: _defaultShadowColor,
         child: Stack(
           children: <Widget>[
             if (backgroundImageName != null)
@@ -131,13 +138,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            _buildAppBarActionItem(this.actions![0]),
+            _buildAppBarActionItem(context, this.actions![0]),
             PopupMenuButton(
-              child: const Icon(
-                Icons.menu,
-                color: Colors.white,
-                size: 20,
-              ),
+              child: const Icon(Icons.menu, color: ColorValues.primaryColor),
               offset: Offset(25, 25),
               padding: const EdgeInsets.all(1.0),
               itemBuilder: (BuildContext context) {
@@ -187,37 +190,43 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            for (var action in this.actions!) _buildAppBarActionItem(action)
+            for (var action in this.actions!)
+              _buildAppBarActionItem(context, action)
           ],
         ),
       );
     }
   }
 
-  _buildAppBarActionItem(AppBarAction actionItem) {
+  _buildAppBarActionItem(context, AppBarAction actionItem) {
     assert(actionItem.icon != null || !actionItem.title.isTextEmpty,
         '操作按钮必须提供图标或标题');
     if (actionItem.icon == null) {
       return ButtonTheme(
         minWidth: 40,
-        height: 44,
-        child: FlatButton(
-          padding: const EdgeInsets.all(0),
-          highlightColor: Colors.transparent,
-          child: Text(actionItem.title!),
-          textColor: Colors.white,
-          onPressed: () {
-            actionItem.action?.call();
-          },
+        height: preferredSize.height,
+        child: TextButton(
+          onPressed: actionItem.action,
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.all(0),
+            minimumSize: Size(40, preferredSize.height),
+            splashFactory: NoSplash.splashFactory,
+          ),
+          child: Text(
+            actionItem.title!,
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
         ),
       );
     } else if (actionItem.title.isTextEmpty) {
       return ButtonTheme(
         minWidth: 40,
-        height: 44,
+        height: preferredSize.height,
         child: IconButton(
           icon: actionItem.icon!,
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           onPressed: () {
             actionItem.action?.call();
           },
@@ -226,21 +235,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     } else {
       return ButtonTheme(
         minWidth: 40,
-        height: 44,
-        child: FlatButton.icon(
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-          icon: actionItem.icon!,
-          highlightColor: Colors.transparent,
-          label: Text(actionItem.title!),
-          textColor: Colors.white,
-          onPressed: () {
-            actionItem.action?.call();
-          },
+        height: preferredSize.height,
+        child: ElevatedButton(
+          onPressed: actionItem.action,
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(0),
+            primary: Colors.transparent,
+            onSurface: Colors.transparent,
+            shadowColor: Colors.transparent,
+            splashFactory: NoSplash.splashFactory,
+            minimumSize: Size(40, preferredSize.height),
+          ),
+          child: Row(
+            children: [
+              actionItem.icon!,
+              Text(
+                actionItem.title!,
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
+            ],
+          ),
         ),
       );
     }
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(44.0);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
