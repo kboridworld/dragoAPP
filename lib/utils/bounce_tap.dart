@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dragoma/utils/ui_utils.dart';
 
 class BounceTap extends StatefulWidget {
   final VoidCallback? onPressed;
@@ -44,9 +43,7 @@ class _BounceTapState extends State<BounceTap> {
           _scale = 1;
         });
       },
-      onTap: () => throttle(() {
-        widget.onPressed?.call();
-      }),
+      onTap: widget.onPressed,
       child: Transform.scale(
         scale: _scale,
         child: widget.child,

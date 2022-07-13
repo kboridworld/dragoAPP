@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:dragoma/application.dart';
+import 'package:dragoma/common/language/messages/messages_const.dart';
+import 'package:dragoma/common/route/app_routes.dart';
+import 'package:dragoma/event/change_language_event.dart';
 import 'package:dragoma/pages/base/wrap_bi_controller.dart';
 import 'package:dragoma/pages/main/index_manager.dart';
 import 'package:dragoma/pages/main/tab/four_page.dart';
@@ -28,13 +33,29 @@ class MainController extends WrapBIController {
     ['tab/icon_tab_bar_my_normal', 'tab/icon_tab_bar_my_select'],
     ['tab/icon_tab_bar_my_normal', 'tab/icon_tab_bar_my_select'],
   ];
-  final List tabLabels = ['首页', '订单', '我的', '页面4'];
-  late final List<Widget> tabBodies;
+  final List tabLabels = [
+    MessagesConst.title_page_one.tr,
+    MessagesConst.title_page_two.tr,
+    MessagesConst.title_page_three.tr,
+    MessagesConst.title_page_four.tr
+  ];
+  final List<Widget> tabBodies = [
+    OnePage(),
+    TwoPage(),
+    ThreePage(),
+    FourPage()
+  ];
+
+  late final StreamSubscription<ChangeLanguageEvent> _subscription;
 
   @override
   void onInit() {
+    _subscription =
+        Application.eventBus.on<ChangeLanguageEvent>().listen((event) {
+      debugPrint('change language event');
+      Get.offAllNamed(AppRoutes.rootPage);
+    });
     pageController = PageController(initialPage: _currentIndex.value);
-    tabBodies = [OnePage(), TwoPage(), ThreePage(), FourPage()];
     super.onInit();
   }
 
@@ -46,8 +67,15 @@ class MainController extends WrapBIController {
     super.onReady();
   }
 
+  @override
+  void onDestroy() {
+    _subscription.cancel();
+    super.onDestroy();
+  }
+
   void changeCurrentIndex(int index) {
     _currentIndex.value = index;
+    update();
     MainTabBarManager().updateIndex(index);
   }
 }

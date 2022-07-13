@@ -1,3 +1,4 @@
+import 'package:dragoma/common/language/messages/messages_const.dart';
 import 'package:dragoma/common/res/styles.dart';
 import 'package:dragoma/pages/base/wrap_bi_controller.dart';
 import 'package:dragoma/widgets/app_bar.dart';
@@ -13,7 +14,8 @@ class FourPage extends GetView<FourTabController> {
     return Scaffold(
       backgroundColor: ColorValues.background,
       appBar: CustomAppBar(
-        title: 'FourPage',
+        title: MessagesConst.title_page_four.tr,
+        isBack: false,
       ),
       body: SafeArea(
         child: Center(

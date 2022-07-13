@@ -3,9 +3,12 @@ import 'dart:isolate';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dragoma/application.dart';
+import 'package:dragoma/common/language/language_helper.dart';
+import 'package:dragoma/common/language/language_impl.dart';
 import 'package:dragoma/common/provider/provider_manager.dart';
 import 'package:dragoma/common/res/strings.dart';
 import 'package:dragoma/common/route/app_routes.dart';
+import 'package:dragoma/pages/login/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -90,6 +93,12 @@ class DriverApp extends StatelessWidget {
         enableBallisticLoad: true,
         child: OKToast(
           child: GetMaterialApp(
+            title: YlzString.appName,
+            theme: ThemeData(
+              primarySwatch: greenTheme,
+              scaffoldBackgroundColor: ColorValues.background,
+            ),
+            defaultTransition: Transition.native,
             initialRoute: AppRoutes.rootPage,
             getPages: AppRoutes.getPages,
             unknownRoute: AppRoutes.notFoundPage,
@@ -98,19 +107,24 @@ class DriverApp extends StatelessWidget {
             },
             navigatorKey: driverAppGlobalKey,
             navigatorObservers: [BotToastNavigatorObserver()],
-            title: YlzString.appName,
-            theme: ThemeData(
-              primarySwatch: greenTheme,
-              scaffoldBackgroundColor: ColorValues.background,
+            initialBinding: BindingsBuilder(
+              () {
+                Get.put(UserModel());
+                UserModel.init();
+              },
             ),
-            locale: const Locale('zh'),
+            locale: LanguageImpl.locale,
+            fallbackLocale: LanguageImpl.fallbackLocale,
+            translations: LanguageImpl(),
+            localeResolutionCallback:
+                LanguageHelper.shared.localeResolutionCallback,
+            supportedLocales: LanguageImpl.supportedLocales,
             localizationsDelegates: [
               RefreshLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate
             ],
-            supportedLocales: [Locale('zh')],
             builder: (BuildContext context, Widget? child) {
               child = botToastBuilder(context, child);
               return MediaQuery(

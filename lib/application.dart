@@ -9,7 +9,6 @@ import 'package:dragoma/common/http/interceptors/log_interceptor.dart';
 import 'package:dragoma/common/http/interceptors/response_interceptor.dart';
 import 'package:dragoma/common/route/app_routes.dart';
 import 'package:dragoma/common/stortage_manager.dart';
-import 'package:dragoma/pages/login/user_model.dart';
 import 'package:dragoma/utils/database/ylz_consignor_db.dart';
 import 'package:dragoma/utils/env_util.dart';
 import 'package:dragoma/utils/location/amap_location_model.dart';
@@ -58,7 +57,6 @@ class Application {
     AppRoutes.configureRoutes();
     // 网络库初始化
     setupNetworkManager();
-    UserModel.init();
     LocationUtils.shared.setup();
   }
 

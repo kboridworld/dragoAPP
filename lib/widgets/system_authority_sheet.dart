@@ -88,7 +88,7 @@ class _SystemAuthoritySheetState extends State<SystemAuthoritySheet> {
           width: 240,
           showBorder: true,
           titleColor: ColorValues.primaryColor,
-          fontSize: Dimens.font_sp15,
+          fontSize: Dimens.font_sp16,
         ),
       );
 }

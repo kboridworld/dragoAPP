@@ -1,3 +1,4 @@
+import 'package:dragoma/common/language/messages/messages_const.dart';
 import 'package:dragoma/common/res/styles.dart';
 import 'package:dragoma/pages/base/wrap_bi_controller.dart';
 import 'package:dragoma/utils/log/ylz_log.dart';
@@ -14,7 +15,7 @@ class TwoPage extends GetView<TwoTabController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorValues.background,
-      appBar: AppBar(title: Text('TwoPage')),
+      appBar: AppBar(title: Text(MessagesConst.title_page_two.tr)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -15,9 +15,8 @@ class MainPage extends GetView<MainController> {
       controller.last = DateTime.now().millisecondsSinceEpoch;
       YLZToastUtils.showToast('再次点击返回退出应用');
       return Future.value(false);
-    } else {
-      return Future.value(true);
     }
+    return Future.value(true);
   }
 
   @override

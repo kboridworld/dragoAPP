@@ -1,47 +1,42 @@
+import 'package:dragoma/common/language/language_helper.dart';
+import 'package:dragoma/common/language/language_type.dart';
+import 'package:dragoma/common/language/messages/messages_const.dart';
 import 'package:dragoma/common/res/styles.dart';
 import 'package:dragoma/pages/base/wrap_bi_controller.dart';
 import 'package:dragoma/pages/login/login_router.dart';
 import 'package:dragoma/pages/login/user_model.dart';
-import 'package:dragoma/utils/toast_utils.dart';
 import 'package:dragoma/widgets/app_bar.dart';
 import 'package:dragoma/widgets/comm_btn_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lib_ylz_ui_kit_package/lib_ylz_ui_kit_package.dart';
 
 ///
 /// 页面3
 class ThreePage extends GetView<ThreeTabController> {
   @override
   Widget build(BuildContext context) {
+    RefreshString strings =
+        RefreshLocalizations.of(context)?.currentLocalization ??
+            EnRefreshString();
     return Scaffold(
       backgroundColor: ColorValues.background,
       appBar: CustomAppBar(
-        title: 'ThreePage',
-        actions: [
-          AppBarAction(
-            icon: Icon(Icons.logout),
-            action: () {
-              YLZToastUtils.showToast('click 1');
-            },
-          ),
-          AppBarAction(
-            title: '测试2',
-            action: () {
-              YLZToastUtils.showToast('click 2');
-            },
-          ),
-          // AppBarAction(
-          //   title: '测试3',
-          //   icon: Icon(
-          //     Icons.map,
-          //     color: Theme.of(context).primaryColor,
-          //   ),
-          //   action: () {
-          //     YLZToastUtils.showToast('click 2');
-          //   },
-          // )
-        ],
+        title: MessagesConst.title_page_three.tr,
+        bgColor: Colors.blue,
+        isBack: true,
+        actions: LanguageHelper.shared
+            .listSupportLanguage()
+            .map(
+              (e) => AppBarAction(
+                title: e.label,
+                action: () {
+                  controller.updateLocale(e);
+                },
+              ),
+            )
+            .toList(),
       ),
       body: SafeArea(
         child: Center(
@@ -50,23 +45,21 @@ class ThreePage extends GetView<ThreeTabController> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  '我是大大大大大大',
+                  '我是大大大大大大, ${MessagesConst.hello.tr}',
                   style: TextStyles.textSize22,
                 ),
               ),
-              Column(
-                children: [
-                  GetBuilder<UserModel>(
-                    init: UserModel.shareInstance,
-                    builder: (userModel) => Text('token: ${userModel.token}'),
-                  ),
-                ],
+              GetBuilder<UserModel>(
+                init: UserModel.shareInstance,
+                builder: (controller) {
+                  return Text('token: ${controller.token}');
+                },
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CommonBtnWidget.buttonWidget(
                   context,
-                  '重新登录',
+                  MessagesConst.retry.tr,
                   () {
                     UserModel.shareInstance.relogin();
                   },
@@ -77,13 +70,18 @@ class ThreePage extends GetView<ThreeTabController> {
                 padding: const EdgeInsets.all(8.0),
                 child: CommonBtnWidget.buttonWidget(
                   context,
-                  '退出登录',
+                  MessagesConst.exit.tr,
                   () async {
                     await UserModel.shareInstance.logout();
                     Get.offAllNamed(LoginRouter.login);
                   },
                   icon: Icon(Icons.build),
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CommonBtnWidget.buttonWidget(
+                    context, strings.canTwoLevelText ?? '', null),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -108,5 +106,9 @@ class ThreeTabController extends WrapBIController {
 
   toggleLightMode() {
     _isDark.value = !_isDark.value;
+  }
+
+  updateLocale(LanguageType type) {
+    LanguageHelper.shared.changeLanguage(type);
   }
 }

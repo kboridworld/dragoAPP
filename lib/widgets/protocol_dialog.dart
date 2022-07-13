@@ -8,8 +8,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+///
+/// 用户协议和隐私协议弹窗
 class ProtocolDialog {
-  ///用户协议和隐私协议弹窗
   static show(
       {VoidCallback? positiveCallback, VoidCallback? negativeCallback}) {
     Get.dialog(
@@ -21,7 +22,7 @@ class ProtocolDialog {
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: ColorValues.primaryText,
-                  fontSize: Dimens.font_sp17,
+                  fontSize: Dimens.font_sp18,
                   fontWeight: FontWeight.w600)),
           children: <Widget>[
             Padding(
@@ -90,7 +91,7 @@ class ProtocolDialog {
                           },
                           height: 38,
                           radius: 4,
-                          fontSize: Dimens.font_sp13,
+                          fontSize: Dimens.font_sp14,
                           showBorder: true,
                           titleColor: ColorValues.summaryText,
                         ),
@@ -106,7 +107,7 @@ class ProtocolDialog {
                           },
                           height: 38,
                           radius: 4,
-                          fontSize: Dimens.font_sp13,
+                          fontSize: Dimens.font_sp14,
                         ),
                       ),
                     ],

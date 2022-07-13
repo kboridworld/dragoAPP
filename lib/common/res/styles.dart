@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:dragoma/common/res/dimens.dart';
+import 'package:flutter/material.dart';
 
+///
+/// 字体大小定义
 class TextStyles {
   static const TextStyle textSize12 = TextStyle(fontSize: Dimens.font_sp12);
-  static const TextStyle textSize13 = TextStyle(fontSize: Dimens.font_sp13);
   static const TextStyle textSize14 = TextStyle(fontSize: Dimens.font_sp14);
-  static const TextStyle textSize15 = TextStyle(fontSize: Dimens.font_sp15);
-  static const TextStyle textSize17 = TextStyle(fontSize: Dimens.font_sp17);
+  static const TextStyle textSize16 = TextStyle(fontSize: Dimens.font_sp16);
+  static const TextStyle textSize18 = TextStyle(fontSize: Dimens.font_sp18);
+  static const TextStyle textSize20 = TextStyle(fontSize: Dimens.font_sp20);
   static const TextStyle textSize22 = TextStyle(fontSize: Dimens.font_sp22);
-  static const TextStyle textSize24 = TextStyle(fontSize: Dimens.font_sp24);
 }
 
-//
+///
+/// 样式定义
 class ViewStyles {
   // button 渐变背景按钮
   static const linear = LinearGradient(colors: [
@@ -35,6 +37,8 @@ class ViewStyles {
   );
 }
 
+///
+/// 颜色定义
 class ColorValues {
   static const Color primaryColor = Color(0xFF06B880);
   static const Color primaryOrange = Color(0xFFFB9432);
@@ -63,8 +67,8 @@ class ColorValues {
   static const Color color_d8d8d8 = Color(0xFFD8D8D8);
 
   static const Color color_shadow = Color(0x219EA5A5);
-  static const Color color_shadow_cfd2d5= Color(0xFFCFD2D5);
-  static const Color color_shadow_3D8C9C= Color(0x503D8C9C);
+  static const Color color_shadow_cfd2d5 = Color(0xFFCFD2D5);
+  static const Color color_shadow_3D8C9C = Color(0x503D8C9C);
   static const Color color_e4fdf5 = Color(0xFFE4FDF5);
   static const Color color_f4fffb = Color(0xFFF4FFFB);
 }

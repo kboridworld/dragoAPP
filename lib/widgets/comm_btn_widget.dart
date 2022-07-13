@@ -16,7 +16,7 @@ class CommonBtnWidget {
     double iconSize = Dimens.gap_dp14,
     Widget? icon,
     String? iconPath,
-    double fontSize = Dimens.font_sp17,
+    double fontSize = Dimens.font_sp18,
     Color? titleColor,
     Color? btnColor,
     bool showBorder = false,

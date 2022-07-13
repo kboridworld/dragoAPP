@@ -9,6 +9,7 @@ class Constant {
   static const String KEY_SHOWED_PROTOCOL_DIALOG = 'key_showed_protocol_dialog'; //隐私协议弹窗
   static const String KEY_UPDATE_CHECK_TIMESTAMP = 'key_update_check_timestamp'; //app版本升级检查时间戳
   static const String KEY_theme = 'key_theme';
+  static const String KEY_Language = 'key_language';
 
   /// 逗号分隔符
   static const String COMMA = ', ';

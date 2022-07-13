@@ -75,7 +75,7 @@ class EmptyStateWidget extends StatelessWidget {
           Text(
             "暂无数据",
             style: TextStyle(
-                color: ColorValues.summaryText, fontSize: Dimens.font_sp15),
+                color: ColorValues.summaryText, fontSize: Dimens.font_sp16),
           ),
         ],
       ),

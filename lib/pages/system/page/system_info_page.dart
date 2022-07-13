@@ -54,7 +54,7 @@ class SystemInfoPage extends GetView<SystemInfoController> {
   Widget _buildHeader() {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: Dimens.gap_dp16, vertical: Dimens.gap_dp15),
+          horizontal: Dimens.gap_dp16, vertical: Dimens.gap_dp16),
       color: Colors.white,
       child: Column(
         children: <Widget>[
@@ -96,7 +96,7 @@ class SystemInfoPage extends GetView<SystemInfoController> {
         YlzString.appName,
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
-      Gaps.vGap5,
+      Gaps.vGap6,
       Text(
         '${controller.appDisplayVersion}',
         style: TextStyle(color: ColorValues.primaryOrange),
@@ -110,7 +110,7 @@ class SystemInfoPage extends GetView<SystemInfoController> {
   Widget _buildItemContent() {
     return Container(
       padding: EdgeInsets.symmetric(
-          horizontal: Dimens.gap_dp16, vertical: Dimens.gap_dp15),
+          horizontal: Dimens.gap_dp16, vertical: Dimens.gap_dp16),
       margin: EdgeInsets.only(bottom: Dimens.gap_dp10),
       color: Colors.white,
       child: Column(

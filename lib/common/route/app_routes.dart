@@ -50,6 +50,7 @@ class AppRoutes {
         }),
       ],
       middlewares: [UnLoginMiddleware()],
+      transition: Transition.noTransition,
     ),
   ];
 }

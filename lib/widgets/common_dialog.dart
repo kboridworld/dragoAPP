@@ -46,7 +46,7 @@ class CommonDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: ColorValues.primaryText,
-                      fontSize: Dimens.font_sp17,
+                      fontSize: Dimens.font_sp18,
                       fontWeight: FontWeight.bold)),
               _buildContent(this.content),
               Gaps.vGap20,
@@ -64,7 +64,7 @@ class CommonDialog extends StatelessWidget {
                       width: contentWith,
                       height: 38,
                       radius: 4,
-                      fontSize: Dimens.font_sp13,
+                      fontSize: Dimens.font_sp14,
                       showBorder: true,
                       titleColor: ColorValues.summaryText,
                     ),
@@ -79,7 +79,7 @@ class CommonDialog extends StatelessWidget {
                     width: contentWith,
                     height: 38,
                     radius: 4,
-                    fontSize: Dimens.font_sp13,
+                    fontSize: Dimens.font_sp14,
                   ),
                 ],
               )

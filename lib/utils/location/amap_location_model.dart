@@ -52,7 +52,6 @@ class LocationUtils {
   late LocationDao _locationDao;
 
   void setup() {
-    _recordLocation(null);
   }
 
   ///

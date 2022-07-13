@@ -141,7 +141,7 @@ class DevSettingPage extends GetView<DevSettingController> {
                           : '点击开启浏览器日志查询',
                       alignment: Alignment.center,
                       style:
-                          TextStyles.textSize17.copyWith(color: Colors.white),
+                          TextStyles.textSize18.copyWith(color: Colors.white),
                       shadowColor: Colors.grey[500]!,
                       shadowBlur: 10,
                       shadowOffset: Offset(3, 5),

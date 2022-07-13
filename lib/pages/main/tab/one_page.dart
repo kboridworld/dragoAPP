@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dragoma/common/language/messages/messages_const.dart';
 import 'package:dragoma/utils/log/ylz_log.dart';
 import 'package:dragoma/utils/log/ylz_log_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 
 ///
 /// 页面1
@@ -102,7 +104,7 @@ class _GeolocatorWidgetState extends State<OnePage>
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('OnePage'),
+        title: Text(MessagesConst.title_page_one.tr),
         actions: [_createActions()],
       ),
       body: ListView.builder(

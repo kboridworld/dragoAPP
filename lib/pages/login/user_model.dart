@@ -30,10 +30,10 @@ class UserModel extends WrapBIController {
   ///
   /// 初始化缓存数据
   static init() async {
-    Get.lazyPut(() => UserModel());
     var userJson = StorageManager.sharedPre.getString(Constant.KEY_userSSOV1);
     if (userJson != null) {
-      shareInstance._driverLoginInfo = DriverLoginInfo.fromJson(jsonDecode(userJson));
+      shareInstance._driverLoginInfo =
+          DriverLoginInfo.fromJson(jsonDecode(userJson));
     }
   }
 

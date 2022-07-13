@@ -1,6 +1,5 @@
 import 'package:dragoma/common/res/gaps.dart';
 import 'package:dragoma/common/res/styles.dart';
-import 'package:dragoma/utils/bounce_tap.dart';
 import 'package:dragoma/utils/dev_utils.dart';
 import 'package:dragoma/widgets/image_loader.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:lib_ylz_utils_package/lib_ylz_utils_package.dart';
 
 class AppBarAction {
-  AppBarAction({this.action, this.title, this.icon, this.textColor});
+  AppBarAction({this.action, this.title, this.icon});
 
   String? title;
-  Color? textColor;
   Widget? icon;
   VoidCallback? action;
 }
 
+///
 /// 全局自定义AppBar:支持多个右侧操作按钮，操作按钮超过2个则已pop menu形式展示
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   static const double _defaultElevation = 4.0;
@@ -23,18 +22,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppBar(
       {Key? key,
-      this.backgroundColor = Colors.white,
-      this.title = '',
+      required this.title,
+      this.bgColor,
       this.backImg,
       this.actions,
       this.isBack = true,
-      this.backgroundImageName,
+      this.bgImage,
       this.statusBarStyle,
       this.goBack,
       this.elevation})
       : super(key: key);
-  final Color? backgroundColor;
-  final String? backgroundImageName;
+  final Color? bgColor;
+  final String? bgImage;
   final String title;
   final String? backImg;
   final List<AppBarAction>? actions;
@@ -45,12 +44,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color _bgColor =
-        this.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor;
+    Color _bgColor = this.bgColor ??
+        Theme.of(context).appBarTheme.backgroundColor ??
+        ColorValues.background;
+    Brightness brightness = ThemeData.estimateBrightnessForColor(_bgColor);
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     Widget back = this.isBack
-        ? BounceTap(
-            onPressed: () {
+        ? GestureDetector(
+            onTap: () {
               if (this.goBack != null) {
                 goBack?.call();
               } else {
@@ -59,21 +60,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               }
             },
             child: Container(
-              padding: EdgeInsets.zero,
+              height: preferredSize.height,
+              width: preferredSize.height,
               child: backImg.isNotTextEmpty
                   ? ImageLoader(backImg!)
-                  : Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        size: 20,
-                      ),
+                  : Icon(
+                      Icons.arrow_back_ios,
+                      size: 20,
+                      color: brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
             ),
             behavior: HitTestBehavior.opaque,
           )
         : Gaps.empty;
-    var actionWidgets = _buildActionWidgets(context);
+    var actionWidgets = _buildActionWidgets(context, brightness: brightness);
     var titleWidget = GestureDetector(
       child: Container(
         alignment: Alignment.center,
@@ -83,10 +85,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           maxLines: 1,
           softWrap: true,
           overflow: TextOverflow.ellipsis,
-          style: TextStyles.textSize17
-              .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyles.textSize20.copyWith(
+            fontWeight: FontWeight.w500,
+            color: brightness == Brightness.dark ? Colors.white : Colors.black,
+          ),
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 48.0),
+        margin: EdgeInsets.symmetric(horizontal: preferredSize.height),
       ),
       onDoubleTap: () {
         DevUtils.shared.triggerDevBox();
@@ -94,7 +98,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: statusBarStyle ??
-          (ThemeData.estimateBrightnessForColor(_bgColor) == Brightness.dark
+          (brightness == Brightness.dark
               ? SystemUiOverlayStyle.light
               : SystemUiOverlayStyle.dark),
       child: Material(
@@ -103,9 +107,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         shadowColor: _defaultShadowColor,
         child: Stack(
           children: <Widget>[
-            if (backgroundImageName != null)
+            if (bgImage != null)
               ImageLoader(
-                backgroundImageName!,
+                bgImage!,
                 fit: BoxFit.cover,
                 width: mediaQueryData.size.width,
                 height: mediaQueryData.padding.top + kToolbarHeight,
@@ -126,54 +130,54 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildActionWidgets(BuildContext context) {
-    if (this.actions == null || this.actions!.isEmptyNullList) {
+  Widget _buildActionWidgets(BuildContext context,
+      {Brightness brightness = Brightness.dark}) {
+    if (this.actions == null || this.actions!.isEmptyNullList)
       return Gaps.empty;
-    }
     if (this.actions!.length > 2) {
       return Positioned(
-        right: 16.0,
+        right: 0,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            _buildAppBarActionItem(context, this.actions![0]),
             PopupMenuButton(
-              child: const Icon(Icons.menu, color: ColorValues.primaryColor),
-              offset: Offset(25, 25),
-              padding: const EdgeInsets.all(1.0),
+              child: Container(
+                height: preferredSize.height,
+                width: preferredSize.height,
+                child: Icon(Icons.more_vert,
+                    color: brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black),
+              ),
               itemBuilder: (BuildContext context) {
-                List<PopupMenuItem<AppBarAction>> children = [];
-                for (var i = 1; i < this.actions!.length; i++) {
-                  var item = this.actions![i];
-                  children.add(
-                    PopupMenuItem<AppBarAction>(
-                      height: 40,
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            item.icon ??
-                                SizedBox(
-                                  width: 20,
+                return this
+                    .actions!
+                    .map((item) => PopupMenuItem<AppBarAction>(
+                          height: 40,
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                item.icon ??
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(item.title ?? ''),
                                 ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(item.title ?? ''),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      value: item,
-                    ),
-                  );
-                }
-                return children;
+                          ),
+                          value: item,
+                        ))
+                    .toList();
               },
               onSelected: (AppBarAction item) {
                 item.action?.call();
